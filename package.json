@@ -1,0 +1,45 @@
+{
+  "name": "@atomiq/json-schema-generator",
+  "version": "0.0.1",
+  "description": "Library for generating JSON Schema.",
+  "main": "./lib",
+  "scripts": {
+    "test": "gulp test",
+    "test-node-0.12": "mocha dist/test -- --harmony",
+    "clean": "gulp clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomiqio/json-schema-generator.git"
+  },
+  "keywords": [
+    "JSON",
+    "schema"
+  ],
+  "contributors": [
+    "Tony Pujals (http://twitter.com/subfuzion)",
+    "Peter Svetlichny (http://twitter.com/p_svetlichny"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atomiqio/json-schema-generator/issues"
+  },
+  "homepage": "https://github.com/atomiqio/json-schema-generator#readme",
+  "dependencies": {
+    "babel-runtime": "^5.4.7",
+    "tv4": "^1.1.9",
+    "z-schema": "^3.11.0"
+  },
+  "devDependencies": {
+    "babel": "^5.4.7",
+    "chalk": "^1.1.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-mocha": "^2.1.0",
+    "gulp-rimraf": "^0.1.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-util": "^3.0.5",
+    "json-schema-test-suite": "0.0.10"
+  }
+}
