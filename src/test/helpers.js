@@ -1,7 +1,11 @@
 module.exports = {
+  stringify: stringify,
   isEqual: isEqual
 };
 
+function stringify(obj) {
+  return JSON.stringify(obj, null, 2);
+}
 
 function isEqual(a, b) {
   var ta = typeof a;
