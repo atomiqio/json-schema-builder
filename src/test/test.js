@@ -130,8 +130,8 @@ describe('enum tests', function () {
     const schema = new json.Schema();
     schema.type = 'object';
 
-    schema.addProperty('foo', new json.Enum(['foo']));
-    schema.addProperty('bar', new json.Enum(['bar']), true);
+    schema.addProperty('foo', new json.Enum('foo'));
+    schema.addProperty('bar', new json.Enum('bar'), true);
 
     return schema;
   });
@@ -140,8 +140,8 @@ describe('enum tests', function () {
     const schema = new json.Schema();
     schema.type = 'object';
 
-    schema.addProperty({ foo: new json.Enum(['foo'])});
-    schema.addProperty({ bar: new json.Enum(['bar'])}, true);
+    schema.addProperty({ foo: new json.Enum('foo')});
+    schema.addProperty({ bar: new json.Enum('bar')}, true);
 
     return schema;
   });

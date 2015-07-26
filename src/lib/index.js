@@ -145,6 +145,10 @@ export class Type extends InstanceKeyword {
 export class Enum extends InstanceKeyword {
   constructor(values) {
     super();
+
+    if (!Array.isArray(values)) {
+      values = Array.prototype.slice.call(arguments);
+    }
     this.values = values;
   }
 
@@ -169,6 +173,10 @@ export class Enum extends InstanceKeyword {
 export class Required extends InstanceKeyword {
   constructor(properties) {
     super();
+
+    if (!Array.isArray(properties)) {
+      properties = Array.prototype.slice.call(arguments);
+    }
     this.properties = properties;
   }
 
