@@ -1,5 +1,5 @@
-json-schema-generator
-=====================
+json-schema-builder
+===================
 
 Create valid [JSON Schema] with a JavaScript API.
 

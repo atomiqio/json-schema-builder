@@ -1,5 +1,5 @@
 {
-  "name": "@atomiq/json-schema-generator",
+  "name": "@atomiq/json-schema-builder",
   "version": "0.0.1",
   "description": "Library for generating JSON Schema.",
   "main": "./lib",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/atomiqio/json-schema-generator.git"
+    "url": "git+https://github.com/atomiqio/json-schema-builder.git"
   },
   "keywords": [
     "JSON",
@@ -22,13 +22,11 @@
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/atomiqio/json-schema-generator/issues"
+    "url": "https://github.com/atomiqio/json-schema-builder/issues"
   },
-  "homepage": "https://github.com/atomiqio/json-schema-generator#readme",
+  "homepage": "https://github.com/atomiqio/json-schema-builder#readme",
   "dependencies": {
-    "babel-runtime": "^5.4.7",
-    "tv4": "^1.1.9",
-    "z-schema": "^3.11.0"
+    "babel-runtime": "^5.4.7"
   },
   "devDependencies": {
     "babel": "^5.4.7",
@@ -40,6 +38,9 @@
     "gulp-rimraf": "^0.1.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.5",
-    "json-schema-test-suite": "0.0.10"
+    "json-schema-test-suite": "0.0.10",
+    "lodash": "^3.10.0",
+    "tv4": "^1.1.9",
+    "z-schema": "^3.11.0"
   }
 }
