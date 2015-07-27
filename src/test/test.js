@@ -36,7 +36,107 @@ function test(name, description, builderFn) {
   });
 }
 
-describe('type tests', function () {
+test.skip = function () {
+  it.skip(arguments[0] + ' => ' + arguments[1], function () {});
+}
+
+describe('properties', function () {
+
+  test('properties', 'object properties validation', () => {
+    const schema = new json.Schema();
+
+    schema.properties = {
+      foo: new json.Type('integer'),
+      bar: new json.Type('string')
+    };
+
+    return schema;
+  });
+
+  // equivalent
+  test('properties', 'object properties validation', () => {
+    const schema = new json.Schema();
+
+    schema.addProperty('foo', new json.Type('integer'));
+    schema.addProperty('bar', new json.Type('string'));
+
+    return schema;
+  });
+
+  test.skip('properties', 'properties, patternProperties, additionalProperties interaction', () => {
+    const schema = new json.Schema();
+
+    // TODO implement patterProperties, additionalProperties
+
+    return schema;
+  });
+});
+
+describe('patternProperties', function () {
+
+  test('patternProperties', 'patternProperties validates properties matching a regex', () => {
+    const schema = new json.Schema();
+
+    schema.patternProperties = {
+      'f.*o': new json.Type('integer')
+    };
+
+    return schema;
+  });
+
+  // equivalent
+  test('patternProperties', 'patternProperties validates properties matching a regex', () => {
+    const schema = new json.Schema();
+
+    schema.addPatternProperty('f.*o', new json.Type('integer'));
+
+    return schema;
+  });
+
+  // equivalent
+  test('patternProperties', 'patternProperties validates properties matching a regex', () => {
+    const schema = new json.Schema();
+
+    schema.addPatternProperty({ 'f.*o': new json.Type('integer') });
+
+    return schema;
+  });
+
+  test.skip('patternProperties', 'multiple simultaneous patternProperties are validated', () => {
+  });
+
+  test('patternProperties', 'regexes are not anchored by default and are case sensitive', () => {
+    const schema = new json.Schema();
+
+    schema.addPatternProperty('[0-9]{2,}', new json.Type('boolean'));
+    schema.addPatternProperty('X_', new json.Type('string'));
+
+    return schema;
+  });
+});
+
+describe('additionalProperties', function() {
+
+  test('additionalProperties', 'additionalProperties being false does not allow other properties', () => {
+    const schema = new json.Schema();
+
+    schema.properties = {
+      foo: {},
+      bar: {}
+    };
+
+    schema.patternProperties = {
+      '^v': {}
+    };
+
+    schema.additionalProperties = false;
+
+    return schema;
+  });
+
+});
+
+describe('type', function () {
 
   test('type', 'integer type matches integers', () => {
     const schema = new json.Schema();
@@ -97,7 +197,7 @@ describe('type tests', function () {
 
 });
 
-describe('enum tests', function () {
+describe('enum', function () {
 
   test('enum', 'simple enum validation', () => {
     const schema = new json.Schema();
@@ -140,9 +240,10 @@ describe('enum tests', function () {
     const schema = new json.Schema();
     schema.type = 'object';
 
-    schema.addProperty({ foo: new json.Enum('foo')});
-    schema.addProperty({ bar: new json.Enum('bar')}, true);
+    schema.addProperty({ foo: new json.Enum('foo') });
+    schema.addProperty({ bar: new json.Enum('bar') }, true);
 
     return schema;
   });
 });
+

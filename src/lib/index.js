@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import assert from 'assert';
 import { stringify } from '../test/helpers';
 
 const primitiveTypes = [
@@ -91,6 +92,40 @@ export class Schema extends Builder {
         this.required = [name];
       }
     }
+  }
+
+  set patternProperties(value) {
+    this.addKeyword(new PatternProperties(value));
+  }
+
+  get patternProperties() {
+    return _.result(_.find(this.keywords, keyword => keyword instanceof PatternProperties), 'value');
+  }
+
+  addPatternProperty(name, value) {
+    if (typeof name == 'object') {
+      Object.keys(name).forEach(key => {
+        this.addPatternProperty(key, name[key]);
+      });
+      return;
+    }
+
+    const properties = _.find(this.keywords, keyword => keyword instanceof PatternProperties);
+    if (properties) {
+      properties.add(name, value);
+    } else {
+      const prop = {};
+      prop[name] = value;
+      this.patternProperties = prop;
+    }
+  }
+
+  set additionalProperties(value) {
+    this.addKeyword(new AdditionalProperties(value));
+  }
+
+  get additionalProperties() {
+    return _.result(_.find(this.keywords, keyword => keyword instanceof AdditionalProperties), 'value');
   }
 
   build(context) {
@@ -198,6 +233,45 @@ export class Required extends InstanceKeyword {
   }
 }
 
+export class KeyValuePair extends Keyword {
+  constructor(key, value) {
+    super();
+    if (typeof key == 'object') {
+      const keys = Object.keys();
+      if (keys.length != 1){
+        throw new Error('KeyValuePair object must have a single key and value');
+      }
+      value = key[keys[0]];
+      key = keys[0];
+    } else if (typeof key != 'string') {
+      throw new Error('keyValuePair key must be a string');
+    }
+
+    this._key = key;
+    this._value = value;
+  }
+
+  get key() {
+    return this._key;
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  get pair() {
+    const o = {};
+    o[this.key] = this.value;
+    return o;
+  }
+
+  build(context) {
+    context = context || {};
+    context[this.key] = this.value;
+    return context;
+  }
+}
+
 export class Properties extends InstanceKeyword {
   constructor(value) {
     super();
@@ -249,3 +323,94 @@ export class Properties extends InstanceKeyword {
     }
   }
 }
+
+export class PatternProperties extends InstanceKeyword {
+  constructor(value) {
+    super();
+    this.value = value;
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  set value(value) {
+    if (typeof value == 'object') {
+      this._value = value;
+    } else {
+      throw new Error('value must be an object');
+    }
+  }
+
+  add(name, value) {
+    if (typeof name == 'object') {
+      Object.keys(name).forEach(key => {
+        this.add(key, name[key]);
+      });
+      return;
+    }
+
+    if (typeof name != 'string') {
+      throw new Error('name must be a string and should be a valid regular expression');
+    }
+
+    if (typeof value != 'object' && value instanceof Schema) {
+      throw new Error('value must be a valid Schema instance');
+    }
+
+    if (this.value) {
+      this.value[name] = value;
+    } else {
+      const prop = {};
+      prop[name] = value;
+      this.value = prop;
+    }
+  }
+
+  build(context) {
+    if (this.value) {
+      const props = {};
+      Object.keys(this.value).forEach(key => {
+        let ctx = {};
+        const value = this.value[key];
+        props[key] = (value instanceof Builder)
+            ? this.value[key].build(ctx)
+            : this.value[key];
+      });
+
+      context['patternProperties'] = props;
+      return context;
+    }
+  }
+}
+
+export class AdditionalProperties extends InstanceKeyword {
+  constructor(value) {
+    super();
+    this.value = value;
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  set value(value) {
+    if (typeof value == 'boolean' || typeof value == 'object' || value instanceof Schema) {
+      this._value = value;
+    } else {
+      throw new Error('value must be an boolean value or a Schema instance');
+    }
+  }
+
+  build(context) {
+    let value = this.value;
+
+    if (value instanceof Schema) {
+      value = value.build(context);
+    }
+
+    context['additionalProperties'] = value;
+    return context;
+  }
+}
+
