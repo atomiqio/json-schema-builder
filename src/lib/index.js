@@ -14,18 +14,18 @@ const primitiveTypes = [
 
 // convenience functions - intended to be the main public interface
 
-exports.schema = function() { return new Schema(...arguments) }
-exports.enum = function() { return new Enum(...arguments) }
-exports.patternProperties = function() { return new PatternProperties(...arguments) }
+exports.schema = function () { return new Schema(...arguments) }
+exports.enum = function () { return new Enum(...arguments) }
+exports.patternProperties = function () { return new PatternProperties(...arguments) }
 
-exports.type = function() { return new Type(...arguments) }
-exports.string = function() { return exports.type('string') }
-exports.boolean = function() { return exports.type('boolean') }
-exports.object = function() { return exports.type('object') }
-exports.array = function() { return exports.type('array') }
-exports.integer = function() { return exports.type('integer') }
-exports.number = function() { return exports.type('number') }
-exports.null = function() { return exports.type('null') }
+exports.type = function () { return new Type(...arguments) }
+exports.string = function () { return exports.type('string') }
+exports.boolean = function () { return exports.type('boolean') }
+exports.object = function () { return exports.type('object') }
+exports.array = function () { return exports.type('array') }
+exports.integer = function () { return exports.type('integer') }
+exports.number = function () { return exports.type('number') }
+exports.null = function () { return exports.type('null') }
 
 
 export class Builder {
@@ -62,11 +62,17 @@ export class Schema extends Builder {
   }
 
   boolean() { return this.type('boolean'); }
+
   integer() { return this.type('integer'); }
+
   number() { return this.type('number'); }
+
   string() { return this.type('string'); }
+
   object() { return this.type('object'); }
+
   array() { return this.type('array'); }
+
   null() { return this.type('null'); }
 
   required(properties) {

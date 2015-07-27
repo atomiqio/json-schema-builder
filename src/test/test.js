@@ -293,8 +293,8 @@ describe('allOf tests', function () {
   test('allOf', 'allOf simple types', () => {
     const schema = json.schema()
         .allOf([
-            json.schema().maximum(30),
-            json.schema().minimum(20)]);
+          json.schema().maximum(30),
+          json.schema().minimum(20)]);
 
     return schema;
   });
