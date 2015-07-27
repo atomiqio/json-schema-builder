@@ -269,3 +269,58 @@ describe('enum', function () {
   });
 });
 
+describe('allOf tests', function() {
+
+  test('allOf', 'allOf', () => {
+    const schema = json.schema()
+        .allOf([
+        {
+          "properties": {
+            "bar": {"type": "integer"}
+          },
+          "required": ["bar"]
+        },
+        {
+          "properties": {
+            "foo": {"type": "string"}
+          },
+          "required": ["foo"]
+        }
+      ]
+    );
+
+    return schema;
+  });
+
+  test('allOf', 'allOf with base schema', () => {
+    const schema = json.schema()
+        .property('bar', json.integer())
+        .required(['bar'])
+        .allOf(
+          [
+            {
+              "properties": {
+                "foo": {"type": "string"}
+              },
+              "required": ["foo"]
+            },
+            {
+              "properties": {
+                "baz": {"type": "null"}
+              },
+              "required": ["baz"]
+            }
+          ]
+        );
+
+    return schema;
+  });
+
+  test('allOf', 'allOf simple types', () => {
+    const schema = json.schema()
+        .allOf([{"maximum": 30}, {"minimum": 20}]);
+
+    return schema;
+  });
+
+});

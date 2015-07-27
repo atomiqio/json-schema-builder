@@ -192,6 +192,17 @@ export class Schema extends Builder {
     return _.result(_.find(this.keywords, keyword => keyword instanceof AdditionalProperties), 'value');
   }
 
+  allOf(value) {
+    // set
+    if (value) {
+      this.addKeyword(new AllOf(value));
+      return this;
+    }
+
+    // get
+    return _.result(_.find(this.keywords, keyword => keyword instanceof AllOf), 'values');
+  }
+
   build(context) {
     context = context || {};
 
@@ -265,6 +276,40 @@ export class Enum extends InstanceKeyword {
 
   build(context) {
     context['enum'] = this.values;
+    return context;
+  }
+}
+
+export class AllOf extends InstanceKeyword {
+  constructor(values) {
+    super();
+
+    if (!Array.isArray(values)) {
+      values = Array.prototype.slice.call(arguments);
+    }
+    this.values = values;
+  }
+
+  get values() {
+    return this._values;
+  }
+
+  set values(values) {
+    if (Array.isArray(values) && values.length) {
+      values.forEach(value => {
+        if (typeof value !== 'object') {
+          throw new Error('values in allOf array must be objects');
+        }
+      });
+
+      this._values = values;
+    } else {
+      throw new Error('values must be an array of values with at least one element');
+    }
+  }
+
+  build(context) {
+    context['allOf'] = this.values;
     return context;
   }
 }
