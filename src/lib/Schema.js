@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import AnyOf from './AnyOf';
 import Builder from './Builder';
 import Keyword from './Keyword';
 import Type from './Type';
@@ -164,6 +165,17 @@ export default class Schema extends Builder {
     // get
     return _.result(_.find(this.keywords, keyword => keyword instanceof AdditionalProperties), 'value');
   }
+
+	anyOf(value) {
+		// set
+		if (value) {
+			this.addKeyword(new AnyOf(value));
+			return this;
+		}
+
+		// get
+		return _.result(_.find(this.keywords, keyword => keyword instanceof AnyOf), 'value');
+	}
 
   build(context) {
     context = context || {};
