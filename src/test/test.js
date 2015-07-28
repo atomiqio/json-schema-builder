@@ -269,3 +269,21 @@ describe('enum', function () {
   });
 });
 
+describe('anyOf', function () {
+
+  test('anyOf', 'anyOf', () => {
+    const schema = json.schema()
+        .anyOf([json.integer(), {'minimum': 2}]);
+
+    return schema;
+  });
+
+  test('anyOf', 'anyOf with base schema', () => {
+    const schema = json.schema()
+        .string()
+        .anyOf([{'maxLength': 2}, {'minLength': 4}]);
+
+    return schema;
+  });
+
+});
