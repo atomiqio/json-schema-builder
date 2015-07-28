@@ -1,6 +1,6 @@
 module.exports = {
   stringify: stringify,
-  isEqual: isEqual
+  isEqual: require('lodash').isEqual
 };
 
 function stringify(obj) {
@@ -22,7 +22,9 @@ function isEqual(a, b) {
     return false;
   }
 
-  if (Array.isArray(ta)) {
+  if (ta == 'string' || ta == 'number' || ta == 'boolean') {
+    return a == b;
+  } else if (Array.isArray(ta)) {
     min = Math.min(a.length, b.length);
     for (i = 0; i < min; i++) {
       //console.log('arrays are not equal. a[%d] (%s) !== b[%d] (%s)', i, a[i], i, b[i]);

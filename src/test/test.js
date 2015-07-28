@@ -123,9 +123,8 @@ describe('additionalProperties', function () {
         })
         .patternProperties({
           '^v': {}
-        });
-
-    schema.additionalProperties = false;
+        })
+        .additionalProperties(false);
 
     return schema;
   });
@@ -135,9 +134,8 @@ describe('additionalProperties', function () {
         .properties({
           foo: {},
           bar: {}
-        });
-
-    schema.additionalProperties = json.schema().boolean();
+        })
+        .additionalProperties(json.schema().boolean());
 
     return schema;
   });
@@ -240,15 +238,12 @@ describe('enum', function () {
 
   test('enum', 'enums in properties', () => {
     const schema = json.schema()
-        .type('object');
-
-    // TODO
-    schema.required = ['bar'];
-
-    schema.properties({
-      foo: json.enum('foo'),
-      bar: json.enum('bar')
-    });
+        .type('object')
+        .required(['bar'])
+        .properties({
+          foo: json.enum('foo'),
+          bar: json.enum('bar')
+        });
 
     return schema;
   });

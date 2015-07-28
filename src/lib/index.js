@@ -69,11 +69,14 @@ export class Schema extends Builder {
   array() { return this.type('array'); }
   null() { return this.type('null'); }
 
-  set required(properties) {
-    this.addKeyword(new Required(properties));
-  }
+  required(properties) {
+    // set
+    if (properties) {
+      this.addKeyword(new Required(properties));
+      return this;
+    }
 
-  get required() {
+    // get
     return _.result(_.find(this.keywords, keyword => keyword instanceof Required), 'properties');
   }
 
@@ -121,10 +124,10 @@ export class Schema extends Builder {
       }
 
       if (required) {
-        if (this.required) {
-          this.required.push(name);
+        if (this.required()) {
+          this.required().push(name);
         } else {
-          this.required = [name];
+          this.required([name]);
         }
       }
 
@@ -148,16 +151,6 @@ export class Schema extends Builder {
     // get
     return _.result(_.find(this.keywords, keyword => keyword instanceof PatternProperties), 'value');
   }
-
-  /*
-  set patternProperties(value) {
-    this.addKeyword(new PatternProperties(value));
-  }
-
-  get patternProperties() {
-    return _.result(_.find(this.keywords, keyword => keyword instanceof PatternProperties), 'value');
-  }
-  */
 
   patternProperty(name, value) {
     // set
@@ -188,11 +181,14 @@ export class Schema extends Builder {
     }
   }
 
-  set additionalProperties(value) {
-    this.addKeyword(new AdditionalProperties(value));
-  }
+  additionalProperties(value) {
+    // set
+    if (typeof value != 'undefined') {
+      this.addKeyword(new AdditionalProperties(value));
+      return this;
+    }
 
-  get additionalProperties() {
+    // get
     return _.result(_.find(this.keywords, keyword => keyword instanceof AdditionalProperties), 'value');
   }
 
