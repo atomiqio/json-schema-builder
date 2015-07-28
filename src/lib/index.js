@@ -16,6 +16,7 @@ const primitiveTypes = [
 
 exports.schema = function() { return new Schema(...arguments) }
 exports.enum = function() { return new Enum(...arguments) }
+exports.patternProperties = function() { return new PatternProperties(...arguments) }
 
 exports.type = function() { return new Type(...arguments) }
 exports.string = function() { return exports.type('string') }
@@ -87,11 +88,14 @@ export class Schema extends Builder {
     return _.result(_.find(this.keywords, keyword => keyword instanceof Enum), 'values');
   }
 
-  set properties(value) {
-    this.addKeyword(new Properties(value));
-  }
+  properties(value) {
+    // set
+    if (value) {
+      this.addKeyword(new Properties(value));
+      return this;
+    }
 
-  get properties() {
+    // get
     return _.result(_.find(this.keywords, keyword => keyword instanceof Properties), 'value');
   }
 
@@ -113,7 +117,7 @@ export class Schema extends Builder {
       } else {
         const prop = {};
         prop[name] = value;
-        this.properties = prop;
+        this.properties(prop);
       }
 
       if (required) {
@@ -128,40 +132,24 @@ export class Schema extends Builder {
     }
 
     // get
-    const props = this.properties;
+    const props = this.properties();
     if (props) {
       return props[name];
     }
   }
 
-  addProperty(name, value, required) {
-    if (typeof name == 'object') {
-      required = value;
-      value = undefined;
-      Object.keys(name).forEach(key => {
-        this.addProperty(key, name[key], required);
-      });
-      return;
+  patternProperties(value) {
+    // set
+    if (value) {
+      this.addKeyword(new PatternProperties(value));
+      return this;
     }
 
-    const properties = _.find(this.keywords, keyword => keyword instanceof Properties);
-    if (properties) {
-      properties.add(name, value);
-    } else {
-      const prop = {};
-      prop[name] = value;
-      this.properties = prop;
-    }
-
-    if (required) {
-      if (this.required) {
-        this.required.push(name);
-      } else {
-        this.required = [name];
-      }
-    }
+    // get
+    return _.result(_.find(this.keywords, keyword => keyword instanceof PatternProperties), 'value');
   }
 
+  /*
   set patternProperties(value) {
     this.addKeyword(new PatternProperties(value));
   }
@@ -169,22 +157,34 @@ export class Schema extends Builder {
   get patternProperties() {
     return _.result(_.find(this.keywords, keyword => keyword instanceof PatternProperties), 'value');
   }
+  */
 
-  addPatternProperty(name, value) {
-    if (typeof name == 'object') {
-      Object.keys(name).forEach(key => {
-        this.addPatternProperty(key, name[key]);
-      });
-      return;
+  patternProperty(name, value) {
+    // set
+    if (name) {
+      if (typeof name == 'object') {
+        Object.keys(name).forEach(key => {
+          this.patternProperty(key, name[key]);
+        });
+        return this;
+      }
+
+      const properties = _.find(this.keywords, keyword => keyword instanceof PatternProperties);
+      if (properties) {
+        properties.add(name, value);
+      } else {
+        const prop = {};
+        prop[name] = value;
+        this.patternProperties(prop);
+      }
+
+      return this;
     }
 
-    const properties = _.find(this.keywords, keyword => keyword instanceof PatternProperties);
-    if (properties) {
-      properties.add(name, value);
-    } else {
-      const prop = {};
-      prop[name] = value;
-      this.patternProperties = prop;
+    // get
+    const props = this.patternProperties();
+    if (props) {
+      return props[name];
     }
   }
 

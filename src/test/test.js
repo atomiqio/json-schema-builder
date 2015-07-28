@@ -20,19 +20,25 @@ function getSchema(name, description) {
 
 function test(name, description, builderFn) {
   it(name + ': ' + description, function () {
-    var expected = getSchema(name, description);
-    var actual = builderFn().build();
+    try {
+      var expected = getSchema(name, description);
+      var actual = builderFn().build();
 
-    if (!isEqual(actual, expected)) {
+      if (!isEqual(actual, expected)) {
+        console.log('==============================');
+        console.log('expected =>');
+        console.log(stringify(expected));
+        console.log('------------------------------');
+        console.log('actual =>');
+        console.log(stringify(actual));
+      }
+
+      assert(isEqual(actual, expected));
+    } catch (err) {
       console.log('==============================');
-      console.log('expected =>');
-      console.log(stringify(expected));
-      console.log('------------------------------');
-      console.log('actual =>');
-      console.log(stringify(actual));
+      console.log('Uncaught error for: %s => %s', name, description);
+      throw err;
     }
-
-    assert(isEqual(actual, expected));
   });
 }
 
@@ -43,12 +49,11 @@ test.skip = function () {
 describe('properties', function () {
 
   test('properties', 'object properties validation', () => {
-    const schema = json.schema();
-
-    schema.properties = {
-      foo: json.integer(),
-      bar: json.string()
-    };
+    const schema = json.schema()
+        .properties({
+          foo: json.integer(),
+          bar: json.string()
+        });
 
     return schema;
   });
@@ -56,7 +61,7 @@ describe('properties', function () {
   // equivalent
   test('properties', 'object properties validation', () => {
     const schema = json.schema()
-        .property('foo', json.integer() )
+        .property('foo', json.integer())
         .property('bar', json.string());
 
     return schema;
@@ -74,29 +79,24 @@ describe('properties', function () {
 describe('patternProperties', function () {
 
   test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-    const schema = json.schema();
-
-    schema.patternProperties = {
-      'f.*o': json.integer()
-    };
+    const schema = json.schema()
+        .patternProperties({ 'f.*o': json.integer() });
 
     return schema;
   });
 
   // equivalent
   test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-    const schema = json.schema();
-
-    schema.addPatternProperty('f.*o', json.integer());
+    const schema = json.schema()
+        .patternProperty('f.*o', json.integer());
 
     return schema;
   });
 
   // equivalent
   test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-    const schema = json.schema();
-
-    schema.addPatternProperty({ 'f.*o': json.integer() });
+    const schema = json.schema()
+        .patternProperty({ 'f.*o': json.integer() });
 
     return schema;
   });
@@ -105,10 +105,9 @@ describe('patternProperties', function () {
   });
 
   test('patternProperties', 'regexes are not anchored by default and are case sensitive', () => {
-    const schema = json.schema();
-
-    schema.addPatternProperty('[0-9]{2,}', json.boolean());
-    schema.addPatternProperty('X_', json.string());
+    const schema = json.schema()
+        .patternProperty('[0-9]{2,}', json.boolean())
+        .patternProperty('X_', json.string());
 
     return schema;
   });
@@ -117,16 +116,14 @@ describe('patternProperties', function () {
 describe('additionalProperties', function () {
 
   test('additionalProperties', 'additionalProperties being false does not allow other properties', () => {
-    const schema = json.schema();
-
-    schema.properties = {
-      foo: {},
-      bar: {}
-    };
-
-    schema.patternProperties = {
-      '^v': {}
-    };
+    const schema = json.schema()
+        .properties({
+          foo: {},
+          bar: {}
+        })
+        .patternProperties({
+          '^v': {}
+        });
 
     schema.additionalProperties = false;
 
@@ -134,17 +131,27 @@ describe('additionalProperties', function () {
   });
 
   test('additionalProperties', 'additionalProperties allows a schema which should validate', () => {
-    const schema = json.schema();
-
-    schema.properties = {
-      foo: {},
-      bar: {}
-    };
+    const schema = json.schema()
+        .properties({
+          foo: {},
+          bar: {}
+        });
 
     schema.additionalProperties = json.schema().boolean();
 
     return schema;
   });
+
+  test('additionalProperties', 'additionalProperties are allowed by default', () => {
+    const schema = json.schema()
+        .properties({
+          foo: {},
+          bar: {}
+        });
+
+    return schema;
+  });
+
 });
 
 describe('type', function () {
@@ -235,11 +242,13 @@ describe('enum', function () {
     const schema = json.schema()
         .type('object');
 
+    // TODO
     schema.required = ['bar'];
-    schema.properties = {
+
+    schema.properties({
       foo: json.enum('foo'),
       bar: json.enum('bar')
-    }
+    });
 
     return schema;
   });
