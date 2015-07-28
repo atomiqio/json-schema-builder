@@ -43,11 +43,11 @@ test.skip = function () {
 describe('properties', function () {
 
   test('properties', 'object properties validation', () => {
-    const schema = new json.Schema();
+    const schema = json.schema();
 
     schema.properties = {
-      foo: new json.Type('integer'),
-      bar: new json.Type('string')
+      foo: json.integer(),
+      bar: json.string()
     };
 
     return schema;
@@ -55,16 +55,15 @@ describe('properties', function () {
 
   // equivalent
   test('properties', 'object properties validation', () => {
-    const schema = new json.Schema();
-
-    schema.addProperty('foo', new json.Type('integer'));
-    schema.addProperty('bar', new json.Type('string'));
+    const schema = json.schema()
+        .property('foo', json.integer() )
+        .property('bar', json.string());
 
     return schema;
   });
 
   test.skip('properties', 'properties, patternProperties, additionalProperties interaction', () => {
-    const schema = new json.Schema();
+    const schema = json.schema();
 
     // TODO implement patterProperties, additionalProperties
 
@@ -75,10 +74,10 @@ describe('properties', function () {
 describe('patternProperties', function () {
 
   test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-    const schema = new json.Schema();
+    const schema = json.schema();
 
     schema.patternProperties = {
-      'f.*o': new json.Type('integer')
+      'f.*o': json.integer()
     };
 
     return schema;
@@ -86,18 +85,18 @@ describe('patternProperties', function () {
 
   // equivalent
   test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-    const schema = new json.Schema();
+    const schema = json.schema();
 
-    schema.addPatternProperty('f.*o', new json.Type('integer'));
+    schema.addPatternProperty('f.*o', json.integer());
 
     return schema;
   });
 
   // equivalent
   test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-    const schema = new json.Schema();
+    const schema = json.schema();
 
-    schema.addPatternProperty({ 'f.*o': new json.Type('integer') });
+    schema.addPatternProperty({ 'f.*o': json.integer() });
 
     return schema;
   });
@@ -106,19 +105,19 @@ describe('patternProperties', function () {
   });
 
   test('patternProperties', 'regexes are not anchored by default and are case sensitive', () => {
-    const schema = new json.Schema();
+    const schema = json.schema();
 
-    schema.addPatternProperty('[0-9]{2,}', new json.Type('boolean'));
-    schema.addPatternProperty('X_', new json.Type('string'));
+    schema.addPatternProperty('[0-9]{2,}', json.boolean());
+    schema.addPatternProperty('X_', json.string());
 
     return schema;
   });
 });
 
-describe('additionalProperties', function() {
+describe('additionalProperties', function () {
 
   test('additionalProperties', 'additionalProperties being false does not allow other properties', () => {
-    const schema = new json.Schema();
+    const schema = json.schema();
 
     schema.properties = {
       foo: {},
@@ -134,64 +133,81 @@ describe('additionalProperties', function() {
     return schema;
   });
 
+  test('additionalProperties', 'additionalProperties allows a schema which should validate', () => {
+    const schema = json.schema();
+
+    schema.properties = {
+      foo: {},
+      bar: {}
+    };
+
+    schema.additionalProperties = json.schema().boolean();
+
+    return schema;
+  });
 });
 
 describe('type', function () {
 
   test('type', 'integer type matches integers', () => {
-    const schema = new json.Schema();
-    // equivalent:
-    // schema.addKeyword(new json.Type('integer'));
-    schema.type = 'integer';
-    assert(schema.type, 'integer');
+    const schema = json.schema()
+        .integer();
+
+    assert.equal(schema.type(), 'integer');
     return schema;
   });
 
   test('type', 'number type matches numbers', () => {
-    const schema = new json.Schema();
-    schema.type = 'number';
-    assert(schema.type, 'number');
+    const schema = json.schema()
+        .number();
+
+    assert.equal(schema.type(), 'number');
     return schema;
   });
 
   test('type', 'string type matches strings', () => {
-    const schema = new json.Schema();
-    schema.type = 'string';
-    assert(schema.type, 'string');
+    const schema = json.schema()
+        .string();
+
+    assert.equal(schema.type(), 'string');
     return schema;
   });
 
   test('type', 'object type matches objects', () => {
-    const schema = new json.Schema();
-    schema.type = 'object';
+    const schema = json.schema()
+        .object();
+
     assert(schema.type, 'object');
     return schema;
   });
 
   test('type', 'array type matches arrays', () => {
-    const schema = new json.Schema();
-    schema.type = 'array';
+    const schema = json.schema()
+        .array();
+
     assert(schema.type, 'array');
     return schema;
   });
 
   test('type', 'boolean type matches booleans', () => {
-    const schema = new json.Schema();
-    schema.type = 'boolean';
+    const schema = json.schema()
+        .boolean();
+
     assert(schema.type, 'boolean');
     return schema;
   });
 
   test('type', 'null type matches only the null object', () => {
-    const schema = new json.Schema();
-    schema.type = 'null';
+    const schema = json.schema()
+        .null();
+
     assert(schema.type, 'null');
     return schema;
   });
 
   test('type', 'multiple types can be specified in an array', () => {
-    const schema = new json.Schema();
-    schema.type = ['integer', 'string'];
+    const schema = json.schema()
+        .type(['integer', 'string']);
     return schema;
   });
 
@@ -200,48 +216,50 @@ describe('type', function () {
 describe('enum', function () {
 
   test('enum', 'simple enum validation', () => {
-    const schema = new json.Schema();
-    schema.enum = [1, 2, 3];
+    const schema = json.schema()
+        .enum([1, 2, 3]);
+
     assert(schema.enum, [1, 2, 3]);
     return schema;
   });
 
   test('enum', 'heterogeneous enum validation', () => {
-    const schema = new json.Schema();
-    schema.enum = [6, "foo", [], true, { "foo": 12 }];
+    const schema = json.schema()
+        .enum([6, "foo", [], true, { "foo": 12 }]);
+
     assert(schema.enum, [6, "foo", [], true, { "foo": 12 }]);
     return schema;
   });
 
   test('enum', 'enums in properties', () => {
-    const schema = new json.Schema();
-    schema.type = 'object';
+    const schema = json.schema()
+        .type('object');
 
     schema.required = ['bar'];
     schema.properties = {
-      foo: { enum: ['foo'] },
-      bar: { enum: ['bar'] }
+      foo: json.enum('foo'),
+      bar: json.enum('bar')
     }
 
     return schema;
   });
 
+  // equivalent (adding properties constructed with name and value)
   test('enum', 'enums in properties', () => {
-    const schema = new json.Schema();
-    schema.type = 'object';
-
-    schema.addProperty('foo', new json.Enum('foo'));
-    schema.addProperty('bar', new json.Enum('bar'), true);
+    const schema = json.schema()
+        .object()
+        .property('foo', json.enum('foo'))
+        .property('bar', json.enum('bar'), true);
 
     return schema;
   });
 
+  // equivalent (adding properties constructed with objects)
   test('enum', 'enums in properties', () => {
-    const schema = new json.Schema();
-    schema.type = 'object';
-
-    schema.addProperty({ foo: new json.Enum('foo') });
-    schema.addProperty({ bar: new json.Enum('bar') }, true);
+    const schema = json.schema()
+        .object()
+        .property({ foo: json.enum('foo') })
+        .property({ bar: json.enum('bar') }, true);
 
     return schema;
   });

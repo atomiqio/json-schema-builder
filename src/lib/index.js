@@ -12,6 +12,21 @@ const primitiveTypes = [
   'null'
 ];
 
+// convenience functions - intended to be the main public interface
+
+exports.schema = function() { return new Schema(...arguments) }
+exports.enum = function() { return new Enum(...arguments) }
+
+exports.type = function() { return new Type(...arguments) }
+exports.string = function() { return exports.type('string') }
+exports.boolean = function() { return exports.type('boolean') }
+exports.object = function() { return exports.type('object') }
+exports.array = function() { return exports.type('array') }
+exports.integer = function() { return exports.type('integer') }
+exports.number = function() { return exports.type('number') }
+exports.null = function() { return exports.type('null') }
+
+
 export class Builder {
 
   build(context) {
@@ -34,13 +49,24 @@ export class Schema extends Builder {
     this.keywords.push(keyword);
   }
 
-  set type(type) {
-    this.addKeyword(new Type(type));
-  }
+  type(type) {
+    // set
+    if (type) {
+      this.addKeyword(new Type(type));
+      return this;
+    }
 
-  get type() {
+    // get (return the value of the type keyword, not the keyword)
     return _.result(_.find(this.keywords, keyword => keyword instanceof Type), 'value');
   }
+
+  boolean() { return this.type('boolean'); }
+  integer() { return this.type('integer'); }
+  number() { return this.type('number'); }
+  string() { return this.type('string'); }
+  object() { return this.type('object'); }
+  array() { return this.type('array'); }
+  null() { return this.type('null'); }
 
   set required(properties) {
     this.addKeyword(new Required(properties));
@@ -50,11 +76,14 @@ export class Schema extends Builder {
     return _.result(_.find(this.keywords, keyword => keyword instanceof Required), 'properties');
   }
 
-  set enum(values) {
-    this.addKeyword(new Enum(values));
-  }
+  enum(values) {
+    // set
+    if (values) {
+      this.addKeyword(new Enum(values));
+      return this;
+    }
 
-  get enum() {
+    // get
     return _.result(_.find(this.keywords, keyword => keyword instanceof Enum), 'values');
   }
 
@@ -64,6 +93,45 @@ export class Schema extends Builder {
 
   get properties() {
     return _.result(_.find(this.keywords, keyword => keyword instanceof Properties), 'value');
+  }
+
+  property(name, value, required) {
+    // set
+    if (name) {
+      if (typeof name == 'object') {
+        required = value;
+        value = undefined;
+        Object.keys(name).forEach(key => {
+          this.property(key, name[key], required);
+        });
+        return this;
+      }
+
+      const properties = _.find(this.keywords, keyword => keyword instanceof Properties);
+      if (properties) {
+        properties.add(name, value);
+      } else {
+        const prop = {};
+        prop[name] = value;
+        this.properties = prop;
+      }
+
+      if (required) {
+        if (this.required) {
+          this.required.push(name);
+        } else {
+          this.required = [name];
+        }
+      }
+
+      return this;
+    }
+
+    // get
+    const props = this.properties;
+    if (props) {
+      return props[name];
+    }
   }
 
   addProperty(name, value, required) {
@@ -238,7 +306,7 @@ export class KeyValuePair extends Keyword {
     super();
     if (typeof key == 'object') {
       const keys = Object.keys();
-      if (keys.length != 1){
+      if (keys.length != 1) {
         throw new Error('KeyValuePair object must have a single key and value');
       }
       value = key[keys[0]];
@@ -403,13 +471,12 @@ export class AdditionalProperties extends InstanceKeyword {
   }
 
   build(context) {
-    let value = this.value;
-
-    if (value instanceof Schema) {
-      value = value.build(context);
-    }
+    const value = (this.value instanceof Schema)
+        ? this.value.build({})
+        : this.value;
 
     context['additionalProperties'] = value;
+
     return context;
   }
 }
