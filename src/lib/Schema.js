@@ -7,7 +7,9 @@ import Type from './Type';
 import Required from './Required';
 import Enum from './Enum';
 import Maximum from './Maximum';
+import Minimum from './Minimum';
 import ExclusiveMaximum from './ExclusiveMaximum';
+import ExclusiveMinimum from './ExclusiveMinimum';
 import MultipleOf from './MultipleOf';
 import OneOf from './OneOf';
 import Properties from './Properties';
@@ -234,6 +236,28 @@ export default class Schema extends Builder {
 
 		// get
 		return this.getKeywordValue(ExclusiveMaximum);
+	}
+
+	minimum(value) {
+		// set
+		if (value) {
+			this.addKeyword(new Minimum(value));
+			return this;
+		}
+
+		// get
+		return this.getKeywordValue(Minimum);
+	}
+
+	exclusiveMinimum(value) {
+		// set
+		if (typeof value != 'undefined') {
+			this.addKeyword(new ExclusiveMinimum(value));
+			return this;
+		}
+
+		// get
+		return this.getKeywordValue(ExclusiveMinimum);
 	}
 
   build(context) {
