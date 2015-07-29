@@ -23,6 +23,7 @@ export default class Enum extends InstanceKeyword {
   }
 
   build(context) {
+    context = context || {};
     context['enum'] = this.values;
     return context;
   }

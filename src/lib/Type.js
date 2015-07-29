@@ -38,6 +38,7 @@ export default class Type extends InstanceKeyword {
   }
 
   build(context) {
+    context = context || {};
     context['type'] = this.value;
     return context;
   }

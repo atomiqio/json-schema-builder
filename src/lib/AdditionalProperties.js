@@ -20,6 +20,8 @@ export default class AdditionalProperties extends InstanceKeyword {
   }
 
   build(context) {
+    context = context || {};
+
     const value = (this.value instanceof Schema)
         ? this.value.build({})
         : this.value;
