@@ -269,3 +269,22 @@ describe('enum', function () {
   });
 });
 
+// TODO: add minimum, maxLength, and minLength
+describe.skip('anyOf', function () {
+
+  test('anyOf', 'anyOf', () => {
+    const schema = json.schema()
+        .anyOf([json.integer(), json.schema().minimum(2)]);
+
+    return schema;
+  });
+
+  test('anyOf', 'anyOf with base schema', () => {
+    const schema = json.schema()
+        .string()
+        .anyOf([json.schema().maxLength(2), json.schema().minLength(4)]);
+
+    return schema;
+  });
+
+});
