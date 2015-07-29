@@ -402,7 +402,6 @@ describe('maximum and exclusiveMaximum', function () {
 				.exclusiveMaximum(true);
 
 		return schema;
-
 	});
 
 });
