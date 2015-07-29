@@ -9,6 +9,10 @@ import Properties from './Properties';
 import PatternProperties from './PatternProperties';
 import AdditionalProperties from './AdditionalProperties';
 
+function isDefined(value) {
+  return typeof value !== 'undefined';
+}
+
 export default class Schema extends Builder {
 
   constructor() {
@@ -24,17 +28,24 @@ export default class Schema extends Builder {
     this.keywords.push(keyword);
   }
 
+  getKeyword(Class) {
+    return _.find(this.keywords, keyword => keyword instanceof Class);
+  }
+
+  getKeywordValue(Class, defaultValue) {
+    return _.result(_.find(this.keywords, keyword => keyword instanceof Class), 'value', defaultValue);
+  }
+
   type(type) {
-    // set
-    if (type) {
+    if (isDefined(type)) {
       this.addKeyword(new Type(type));
       return this;
     }
 
-    // get (return the value of the type keyword, not the keyword)
-    return _.result(_.find(this.keywords, keyword => keyword instanceof Type), 'value');
+    return this.getKeywordValue(Type);
   }
 
+  // type convenience methods
   boolean() { return this.type('boolean'); }
   integer() { return this.type('integer'); }
   number() { return this.type('number'); }
@@ -44,41 +55,35 @@ export default class Schema extends Builder {
   null() { return this.type('null'); }
 
   required(properties) {
-    // set
-    if (properties) {
+    if (isDefined(properties)) {
       this.addKeyword(new Required(properties));
       return this;
     }
 
-    // get
-    return _.result(_.find(this.keywords, keyword => keyword instanceof Required), 'properties');
+    return this.getKeywordValue(Required);
   }
 
   enum(values) {
-    // set
-    if (values) {
+    if (isDefined(values)) {
       this.addKeyword(new Enum(values));
       return this;
     }
 
-    // get
-    return _.result(_.find(this.keywords, keyword => keyword instanceof Enum), 'values');
+    return this.getKeywordValue(Enum);
   }
 
   properties(value) {
-    // set
-    if (value) {
+    if (isDefined(value)) {
       this.addKeyword(new Properties(value));
       return this;
     }
 
-    // get
-    return _.result(_.find(this.keywords, keyword => keyword instanceof Properties), 'value');
+    return this.getKeywordValue(Properties);
   }
 
   property(name, value, required) {
     // set
-    if (name) {
+    if (isDefined(name)) {
       if (typeof name == 'object') {
         required = value;
         value = undefined;
@@ -88,7 +93,7 @@ export default class Schema extends Builder {
         return this;
       }
 
-      const properties = _.find(this.keywords, keyword => keyword instanceof Properties);
+      const properties = this.getKeyword(Properties);
       if (properties) {
         properties.add(name, value);
       } else {
@@ -116,14 +121,12 @@ export default class Schema extends Builder {
   }
 
   patternProperties(value) {
-    // set
-    if (value) {
+    if (isDefined(value)) {
       this.addKeyword(new PatternProperties(value));
       return this;
     }
 
-    // get
-    return _.result(_.find(this.keywords, keyword => keyword instanceof PatternProperties), 'value');
+    return this.getKeywordValue(PatternProperties);
   }
 
   patternProperty(name, value) {
@@ -136,7 +139,7 @@ export default class Schema extends Builder {
         return this;
       }
 
-      const properties = _.find(this.keywords, keyword => keyword instanceof PatternProperties);
+      const properties = this.getKeyword(PatternProperties);
       if (properties) {
         properties.add(name, value);
       } else {
@@ -156,25 +159,21 @@ export default class Schema extends Builder {
   }
 
   additionalProperties(value) {
-    // set
-    if (typeof value != 'undefined') {
+    if (isDefined(value)) {
       this.addKeyword(new AdditionalProperties(value));
       return this;
     }
 
-    // get
-    return _.result(_.find(this.keywords, keyword => keyword instanceof AdditionalProperties), 'value');
+    return this.getKeywordValue(AdditionalProperties);
   }
 
 	anyOf(value) {
-		// set
-		if (value) {
+		if (isDefined(value)) {
 			this.addKeyword(new AnyOf(value));
 			return this;
 		}
 
-		// get
-		return _.result(_.find(this.keywords, keyword => keyword instanceof AnyOf), 'value');
+    return this.getKeywordValue(AnyOf);
 	}
 
   build(context) {

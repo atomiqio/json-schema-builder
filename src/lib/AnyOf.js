@@ -2,38 +2,38 @@ import InstanceKeyword from './InstanceKeyword';
 import Schema from './Schema';
 
 export default class AnyOf extends InstanceKeyword {
-	constructor(values) {
+	constructor(value) {
 		super();
 
-		if (!Array.isArray(values)) {
-			values = Array.prototype.slice.call(arguments);
+		if (!Array.isArray(value)) {
+			value = Array.prototype.slice.call(arguments);
 		}
-		this.values = values;
+		this.value = value;
 	}
 
-	get values() {
-		return this._values;
+	get value() {
+		return this._value;
 	}
 
-	set values(values) {
-		if (Array.isArray(values) && values.length) {
-			values.forEach(value => {
-				if (typeof value != 'object' || Array.isArray(value)) {
-					throw new Error('values of anyOf array must be objects');
+	set value(value) {
+		if (Array.isArray(value) && value.length) {
+			value.forEach(v => {
+				if (typeof v != 'object' || Array.isArray(v)) {
+					throw new Error('value of anyOf array must be objects');
 				}
 			});
-			this._values = values;
+			this._value = value;
 		} else {
-			throw new Error('values must be an array of values with at least one element');
+			throw new Error('value must be an array of values with at least one element');
 		}
 	}
 
 	build(context) {
 		context = context || {};
-		if (this.values) {
+		if (this.value) {
 			const props = [];
 
-			this.values.forEach(elem => {
+			this.value.forEach(elem => {
 				props.push(elem instanceof Schema ? elem.build() : elem)
 			});
 

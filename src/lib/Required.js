@@ -1,30 +1,30 @@
 import InstanceKeyword from './InstanceKeyword';
 
 export default class Required extends InstanceKeyword {
-  constructor(properties) {
+  constructor(value) {
     super();
 
-    if (!Array.isArray(properties)) {
-      properties = Array.prototype.slice.call(arguments);
+    if (!Array.isArray(value)) {
+      value = Array.prototype.slice.call(arguments);
     }
-    this.properties = properties;
+    this.value = value;
   }
 
-  get properties() {
-    return this._properties;
+  get value() {
+    return this._value;
   }
 
-  set properties(properties) {
-    if (Array.isArray(properties) && properties.length) {
-      this._properties = properties;
+  set value(value) {
+    if (Array.isArray(value) && value.length) {
+      this._value = value;
     } else {
-      throw new Error('values must be an array of property names with at least one element');
+      throw new Error('value must be an array of property names with at least one element');
     }
   }
 
   build(context) {
     context = context || {};
-    context['required'] = this.properties;
+    context['required'] = this.value;
     return context;
   }
 }
