@@ -3,10 +3,6 @@ import InstanceKeyword from './InstanceKeyword';
 export default class Enum extends InstanceKeyword {
   constructor(values) {
     super();
-
-    if (!Array.isArray(values)) {
-      values = Array.prototype.slice.call(arguments);
-    }
     this.values = values;
   }
 
@@ -15,10 +11,14 @@ export default class Enum extends InstanceKeyword {
   }
 
   set values(values) {
-    if (Array.isArray(values) && values.length) {
+    if (!Array.isArray(values)) {
+      values = Array.prototype.slice.call(arguments);
+    }
+
+    if (values.length) {
       this._values = values;
     } else {
-      throw new Error('values must be an array of values with at least one element');
+      throw new Error('must have at least one value');
     }
   }
 
