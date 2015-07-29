@@ -391,7 +391,7 @@ describe('maximum and exclusiveMaximum', function () {
 
 	test('maximum', 'maximum validation', () => {
 		const schema = json.schema()
-			.maximum(3.0);
+			  .maximum(3.0);
 
 		return schema;
 	});

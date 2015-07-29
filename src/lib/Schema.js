@@ -260,6 +260,28 @@ export default class Schema extends Builder {
 		return this.getKeywordValue(ExclusiveMinimum);
 	}
 
+	maximum(value) {
+		// set
+		if (value) {
+			this.addKeyword(new Maximum(value));
+			return this;
+		}
+
+		// get
+		return _.result(_.find(this.keywords, keyword => keyword instanceof Maximum), 'value');
+	}
+
+	exclusiveMaximum(value) {
+		// set
+		if (typeof value != 'undefined') {
+			this.addKeyword(new ExclusiveMaximum(value));
+			return this;
+		}
+
+		// get
+		return _.result(_.find(this.keywords, keyword => keyword instanceof ExclusiveMaximum), 'value');
+	}
+
   build(context) {
     context = context || {};
 
