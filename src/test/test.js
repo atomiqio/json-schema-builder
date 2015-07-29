@@ -295,7 +295,6 @@ describe('allOf tests', function () {
 
 });
 
-
 // TODO: add minimum, maxLength, and minLength
 describe.skip('anyOf', function () {
 
