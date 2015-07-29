@@ -1,30 +1,34 @@
 import InstanceKeyword from './InstanceKeyword';
 
 export default class Enum extends InstanceKeyword {
-  constructor(values) {
+  constructor(value) {
     super();
-    this.values = values;
+
+    if (!Array.isArray(value)) {
+      value = Array.prototype.slice.call(arguments);
+    }
+    this.value = value;
   }
 
-  get values() {
-    return this._values;
+  get value() {
+    return this._value;
   }
 
-  set values(values) {
-    if (!Array.isArray(values)) {
-      values = Array.prototype.slice.call(arguments);
+  set value(value) {
+    if (!Array.isArray(value)) {
+      value = Array.prototype.slice.call(arguments);
     }
 
-    if (values.length) {
-      this._values = values;
+    if (value.length) {
+      this._value = value;
     } else {
-      throw new Error('must have at least one value');
+      throw new Error('value must be an array with at least one element');
     }
   }
 
   build(context) {
     context = context || {};
-    context['enum'] = this.values;
+    context['enum'] = this.value;
     return context;
   }
 }

@@ -12,29 +12,29 @@ const primitiveTypes = [
 ];
 
 export default class Type extends InstanceKeyword {
-  constructor(type) {
+  constructor(value) {
     super();
-    this.value = type;
+    this.value = value;
   }
 
-  set value(type) {
-    if (typeof type != 'string' && !Array.isArray(type)) {
-      throw new Error('type must be a string or an array of strings');
+  set value(value) {
+    if (typeof value != 'string' && !Array.isArray(value)) {
+      throw new Error('value must be a string or an array of strings');
     }
 
-    if (Array.isArray(type)) {
-      type.forEach(t => {
+    if (Array.isArray(value)) {
+      value.forEach(t => {
         if (!_.includes(primitiveTypes, t)) {
-          throw new Error('type array elements must be a string value that specifies a valid type: ' + t);
+          throw new Error('value array elements must be a string value that specifies a valid value: ' + t);
         }
       });
     }
 
-    this._type = type;
+    this._value = value;
   }
 
   get value() {
-    return this._type;
+    return this._value;
   }
 
   build(context) {
