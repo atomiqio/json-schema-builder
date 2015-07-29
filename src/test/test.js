@@ -306,6 +306,31 @@ describe('allOf tests', function () {
 
 });
 
+describe('multipleOf', function () {
+
+	test('multipleOf', 'by int', () => {
+		const schema = json.schema()
+			.multipleOf(2);
+
+		return schema;
+	});
+
+	test('multipleOf', 'by number', () => {
+		const schema = json.schema()
+			.multipleOf(1.5);
+
+		return schema;
+	});
+
+	test('multipleOf', 'by small number', () => {
+		const schema = json.schema()
+			.multipleOf(0.0001);
+
+		return schema;
+	});
+
+});
+
 // TODO: add minimum, maxLength, and minLength
 describe.skip('anyOf', function () {
 

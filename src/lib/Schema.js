@@ -6,6 +6,7 @@ import Keyword from './Keyword';
 import Type from './Type';
 import Required from './Required';
 import Enum from './Enum';
+import MultipleOf from './MultipleOf';
 import OneOf from './OneOf';
 import Properties from './Properties';
 import PatternProperties from './PatternProperties';
@@ -198,6 +199,17 @@ export default class Schema extends Builder {
 
 		// get
 		return this.getKeywordValue(OneOf);
+	}
+
+	multipleOf(value) {
+		// set
+		if (value) {
+			this.addKeyword(new MultipleOf(value));
+			return this;
+		}
+
+		// get
+		return _.result(_.find(this.keywords, keyword => keyword instanceof MultipleOf), 'value');
 	}
 
   build(context) {
