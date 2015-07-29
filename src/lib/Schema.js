@@ -5,6 +5,7 @@ import Keyword from './Keyword';
 import Type from './Type';
 import Required from './Required';
 import Enum from './Enum';
+import OneOf from './OneOf';
 import Properties from './Properties';
 import PatternProperties from './PatternProperties';
 import AdditionalProperties from './AdditionalProperties';
@@ -174,6 +175,17 @@ export default class Schema extends Builder {
 		}
 
     return this.getKeywordValue(AnyOf);
+	}
+
+	oneOf(value) {
+		// set
+		if (value) {
+			this.addKeyword(new OneOf(value));
+			return this;
+		}
+
+		// get
+		return _.result(_.find(this.keywords, keyword => keyword instanceof OneOf), 'value');
 	}
 
   build(context) {

@@ -265,19 +265,39 @@ describe('enum', function () {
 // TODO: add minimum, maxLength, and minLength
 describe.skip('anyOf', function () {
 
-  test('anyOf', 'anyOf', () => {
+	test('anyOf', 'anyOf', () => {
+		const schema = json.schema()
+			.anyOf([json.integer(), json.schema().minimum(2)]);
+
+		return schema;
+	});
+
+	test('anyOf', 'anyOf with base schema', () => {
+		const schema = json.schema()
+			.string()
+			.anyOf([json.schema().maxLength(2), json.schema().minLength(4)]);
+
+		return schema;
+	});
+
+});
+
+//TODO: add minimum, minLength, and maxLength
+describe.skip('oneOf', function () {
+
+  test('oneOf', 'oneOf', () => {
     const schema = json.schema()
-        .anyOf([json.integer(), json.schema().minimum(2)]);
+        .oneOf([json.integer(), json.schema().minimum(2)]);
 
     return schema;
   });
 
-  test('anyOf', 'anyOf with base schema', () => {
-    const schema = json.schema()
-        .string()
-        .anyOf([json.schema().maxLength(2), json.schema().minLength(4)]);
+	test('oneOf', 'oneOf with base schema', () => {
+		const schema = json.schema()
+				.string()
+				.oneOf([json.schema().minLength(2), json.schema().maxLength(4)]);
 
-    return schema;
-  });
+		return schema;
+	});
 
 });
