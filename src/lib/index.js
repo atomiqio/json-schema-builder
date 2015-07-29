@@ -23,4 +23,3 @@ exports.array = function () { return exports.type('array') }
 exports.integer = function () { return exports.type('integer') }
 exports.number = function () { return exports.type('number') }
 exports.null = function () { return exports.type('null') }
-
