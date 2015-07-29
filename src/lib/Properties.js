@@ -39,6 +39,8 @@ export default class Properties extends InstanceKeyword {
   }
 
   build(context) {
+    context = context || {};
+
     if (this.value) {
       const props = {};
       Object.keys(this.value).forEach(key => {
@@ -50,7 +52,8 @@ export default class Properties extends InstanceKeyword {
       });
 
       context['properties'] = props;
-      return context;
     }
+
+    return context;
   }
 }

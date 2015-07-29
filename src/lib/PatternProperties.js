@@ -46,18 +46,20 @@ export default class PatternProperties extends InstanceKeyword {
   }
 
   build(context) {
+    context = context || {};
+
     if (this.value) {
       const props = {};
       Object.keys(this.value).forEach(key => {
-        let ctx = {};
         const value = this.value[key];
         props[key] = (value instanceof Builder)
-            ? this.value[key].build(ctx)
+            ? this.value[key].build()
             : this.value[key];
       });
 
       context['patternProperties'] = props;
-      return context;
     }
+
+    return context;
   }
 }

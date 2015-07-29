@@ -23,6 +23,7 @@ export default class Required extends InstanceKeyword {
   }
 
   build(context) {
+    context = context || {};
     context['required'] = this.properties;
     return context;
   }
