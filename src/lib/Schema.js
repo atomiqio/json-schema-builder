@@ -6,6 +6,8 @@ import Keyword from './Keyword';
 import Type from './Type';
 import Required from './Required';
 import Enum from './Enum';
+import Maximum from './Maximum';
+import ExclusiveMaximum from './ExclusiveMaximum';
 import MultipleOf from './MultipleOf';
 import OneOf from './OneOf';
 import Properties from './Properties';
@@ -209,7 +211,29 @@ export default class Schema extends Builder {
 		}
 
 		// get
-		return _.result(_.find(this.keywords, keyword => keyword instanceof MultipleOf), 'value');
+		return this.getKeywordValue(MultipleOf);
+	}
+
+	maximum(value) {
+		// set
+		if (value) {
+			this.addKeyword(new Maximum(value));
+			return this;
+		}
+
+		// get
+		return this.getKeywordValue(Maximum);
+	}
+
+	exclusiveMaximum(value) {
+		// set
+		if (typeof value != 'undefined') {
+			this.addKeyword(new ExclusiveMaximum(value));
+			return this;
+		}
+
+		// get
+		return this.getKeywordValue(ExclusiveMaximum);
 	}
 
   build(context) {

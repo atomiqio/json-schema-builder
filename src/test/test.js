@@ -341,7 +341,7 @@ describe.skip('anyOf', function () {
 		return schema;
 	});
 
-	//equivalent - tests non-array arguments
+	// equivalent - tests non-array arguments
 	test('anyOf', 'anyOf', () => {
 		const schema = json.schema()
 			.anyOf(json.integer(), json.schema().minimum(2));
@@ -384,5 +384,24 @@ describe.skip('oneOf', function () {
 
 		return schema;
 	});
+
+});
+
+describe('maximum and exclusiveMaximum', function () {
+
+	test('maximum', 'maximum validation', () => {
+		const schema = json.schema()
+			.maximum(3.0);
+
+		return schema;
+	});
+
+	test('maximum', 'exclusiveMaximum validation', () => {
+		const schema = json.schema()
+			  .maximum(3.0)
+				.exclusiveMaximum(true);
+
+		return schema;
+	})
 
 });
