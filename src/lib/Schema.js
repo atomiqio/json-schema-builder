@@ -168,6 +168,7 @@ export default class Schema extends Builder {
     return this.getKeywordValue(AdditionalProperties);
   }
 
+<<<<<<< HEAD
 	anyOf(value) {
 		if (isDefined(value)) {
 			this.addKeyword(new AnyOf(value));
@@ -177,6 +178,8 @@ export default class Schema extends Builder {
     return this.getKeywordValue(AnyOf);
 	}
 
+=======
+>>>>>>> oneOf tests passing
 	oneOf(value) {
 		// set
 		if (value) {

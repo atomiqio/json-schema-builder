@@ -282,7 +282,7 @@ describe.skip('anyOf', function () {
 
 });
 
-//TODO: add minimum, minLength, and maxLength
+//TODO: add minimum, minlength, and maxLength
 describe.skip('oneOf', function () {
 
   test('oneOf', 'oneOf', () => {
