@@ -12,18 +12,20 @@ export default class Items extends ArrayKeyword {
 	}
 
 	set value(value) {
-		if (typeof value == 'object' && value instanceof Schema) {
+		if ((typeof value == 'object' && value instanceof Schema) || Array.isArray(value)) {
+			if (Array.isArray(value)) {
+				value.forEach(v => {
+					if (typeof v !== 'object' && !(v instanceof Schema)) {
+						throw new Error('array values must be Schema instances');
+					}
+				});
+			}
+
 			this._value = value;
-		} else if (Array.isArray(value)) {
-			value.forEach(v => {
-				if (typeof v !== 'object' && !(v instanceof Schema)) {
-					throw new Error('array values must be Schema instances');
-				}
-			});
-			this._value = value;
+
 		} else {
 			throw new Error('value must be an array or a Schema instance');
-	}
+		}
 	}
 
 	build(context) {
