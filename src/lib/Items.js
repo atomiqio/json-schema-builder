@@ -44,7 +44,7 @@ export default class Items extends ArrayKeyword {
 				});
 			}
 
-			context['items'] = props;
+			context.items = props;
 		}
 
 		return context;
