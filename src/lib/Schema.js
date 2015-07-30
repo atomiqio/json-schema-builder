@@ -89,7 +89,6 @@ export default class Schema extends Builder {
   }
 
   property(name, value, required) {
-    // set
     if (isDefined(name)) {
       if (typeof name == 'object') {
         required = value;
@@ -120,7 +119,6 @@ export default class Schema extends Builder {
       return this;
     }
 
-    // get
     const props = this.properties();
     if (props) {
       return props[name];
@@ -137,7 +135,6 @@ export default class Schema extends Builder {
   }
 
   patternProperty(name, value) {
-    // set
     if (name) {
       if (typeof name == 'object') {
         Object.keys(name).forEach(key => {
@@ -158,7 +155,6 @@ export default class Schema extends Builder {
       return this;
     }
 
-    // get
     const props = this.patternProperties();
     if (props) {
       return props[name];
@@ -174,56 +170,48 @@ export default class Schema extends Builder {
     return this.getKeywordValue(AdditionalProperties);
   }
 
-	allOf(values) {
-		// set
-		if (values) {
-			this.addKeyword(new AllOf(values));
+	allOf() {
+		if (arguments.length) {
+			this.addKeyword(new AllOf(...arguments));
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(AllOf);
 	}
 
-	anyOf(value) {
-		if (isDefined(value)) {
-			this.addKeyword(new AnyOf(value));
+	anyOf() {
+    if (arguments.length) {
+			this.addKeyword(new AnyOf(...arguments));
 			return this;
 		}
 
     return this.getKeywordValue(AnyOf);
 	}
 
-	oneOf(value) {
-		// set
-		if (value) {
-			this.addKeyword(new OneOf(value));
+	oneOf() {
+    if (arguments.length) {
+			this.addKeyword(new OneOf(...arguments));
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(OneOf);
 	}
 
 	multipleOf(value) {
-		// set
 		if (value) {
 			this.addKeyword(new MultipleOf(value));
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(MultipleOf);
 	}
 
 	maximum(value) {
-		// set
 		if (value) {
 			this.addKeyword(new Maximum(value));
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(Maximum);
 	}
 
@@ -234,18 +222,15 @@ export default class Schema extends Builder {
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(ExclusiveMaximum);
 	}
 
 	minimum(value) {
-		// set
 		if (value) {
 			this.addKeyword(new Minimum(value));
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(Minimum);
 	}
 
@@ -256,7 +241,6 @@ export default class Schema extends Builder {
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(ExclusiveMinimum);
 	}
 

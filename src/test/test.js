@@ -273,8 +273,7 @@ describe('allOf tests', function () {
 		return schema;
 	});
 
-	//TODO: equivalent - tests non-array arguments
-	test.skip('allOf', 'allOf', () => {
+	test('allOf', 'allOf', () => {
 		const schema = json.schema()
 			.allOf(
 					json.schema().property('bar', json.integer(), true),
@@ -294,8 +293,7 @@ describe('allOf tests', function () {
 		return schema;
 	});
 
-	// TODO: add maximum and minimum
-	test.skip('allOf', 'allOf simple types', () => {
+	test('allOf', 'allOf simple types', () => {
 		const schema = json.schema()
 			.allOf([
 				json.schema().maximum(30),
@@ -341,14 +339,14 @@ describe('anyOf', function () {
 		return schema;
 	});
 
-	// equivalent - tests non-array arguments
-	test.skip('anyOf', 'anyOf', () => {
+	test('anyOf', 'anyOf', () => {
 		const schema = json.schema()
 			.anyOf(json.schema().integer(), json.schema().minimum(2));
 
 		return schema;
 	});
 
+  // TODO add maxLength
 	test.skip('anyOf', 'anyOf with base schema', () => {
 		const schema = json.schema()
 			.string()
@@ -369,14 +367,14 @@ describe('oneOf', function () {
     return schema;
   });
 
-	//equivalent - tests non-array arguments
-	test.skip('oneOf', 'oneOf', () => {
+	test('oneOf', 'oneOf', () => {
 		const schema = json.schema()
 			.oneOf(json.schema().integer(), json.schema().minimum(2));
 
 		return schema;
 	});
 
+  // TODO add maxLength
 	test.skip('oneOf', 'oneOf with base schema', () => {
 		const schema = json.schema()
 				.string()
