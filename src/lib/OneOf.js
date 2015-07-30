@@ -4,10 +4,6 @@ import Schema from './Schema';
 export default class OneOf extends InstanceKeyword {
 	constructor(value) {
 		super();
-
-		if (!Array.isArray(value)) {
-			value = Array.prototype.slice.call(arguments);
-		}
 		this.value = value;
 	}
 
@@ -16,13 +12,19 @@ export default class OneOf extends InstanceKeyword {
 	}
 
 	set value(value) {
-		if (Array.isArray(value) && value.length) {
+		if (!Array.isArray(value)) {
+			value = Array.prototype.slice.call(arguments);
+		}
+
+		if (value.length) {
 			value.forEach(elem => {
 				if (typeof elem != 'object' || !(elem instanceof Schema)) {
-					throw new Error('values of oneOf array must be valid Schema instances');
+					throw new Error('array values must be valid Schema instances');
 				}
 			});
+
 			this._value = value;
+
 		} else {
 			throw new Error('values must be an array of values with at least one element');
 		}

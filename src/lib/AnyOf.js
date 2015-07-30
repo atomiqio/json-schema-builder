@@ -4,10 +4,6 @@ import Schema from './Schema';
 export default class AnyOf extends InstanceKeyword {
 	constructor(value) {
 		super();
-
-		if (!Array.isArray(value)) {
-			value = Array.prototype.slice.call(arguments);
-		}
 		this.value = value;
 	}
 
@@ -16,17 +12,23 @@ export default class AnyOf extends InstanceKeyword {
 	}
 
 	set value(value) {
-		if (Array.isArray(value) && value.length) {
-			value.forEach(v => {
-				if (typeof v != 'object' || Array.isArray(v)) {
-					throw new Error('value of anyOf array must be objects');
+		if (!Array.isArray(value)) {
+			value = Array.prototype.slice.call(arguments);
+		}
+
+		if (value.length) {
+			value.forEach(elem => {
+				if (typeof elem != 'object' || !(elem instanceof Schema)) {
+					throw new Error('array values must be valid Schema instances');
 				}
 			});
+
 			this._value = value;
+
 		} else {
-			throw new Error('value must be an array of values with at least one element');
-		}
+			throw new Error('values must be an array of values with at least one element');
 	}
+}
 
 	build(context) {
 		context = context || {};
