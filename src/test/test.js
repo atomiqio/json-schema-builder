@@ -468,3 +468,71 @@ describe('object keywords', () => {
   });
 
 });
+
+describe('array keywords', () => {
+
+	test('items', 'a schema given for items', () => {
+		const schema = json.schema()
+			.items(json.schema().integer());
+
+		return schema;
+	});
+
+	test('items', 'an array of schemas for items', () => {
+		const schema = json.schema()
+			.items([json.schema().integer(), json.schema().string()]);
+
+		return schema;
+	});
+
+	test('additionalItems', 'additionalItems as schema', () => {
+		const schema = json.schema()
+			.items([json.schema()])
+			.additionalItems(json.schema().integer());
+
+		return schema;
+	});
+
+	test('additionalItems', 'items is schema, no additionalItems', () => {
+		const schema = json.schema()
+			.items(json.schema())
+			.additionalItems(false);
+
+		return schema;
+	});
+
+	test('additionalItems', 'array of items with no additionalItems', () => {
+		const schema = json.schema()
+			.items([json.schema(), json.schema(), json.schema()])
+			.additionalItems(false);
+
+		return schema;
+	});
+
+	test('additionalItems', 'additionalItems as false without items', () => {
+		const schema = json.schema().additionalItems(false);
+		return schema;
+	});
+
+	test('additionalItems', 'additionalItems are allowed by default', () => {
+		const schema = json.schema()
+			.items([json.schema().integer()]);
+		return schema;
+	});
+
+	test('maxItems', 'maxItems validation', () => {
+		const schema = json.schema().maxItems(2);
+		return schema;
+	});
+
+	test('minItems', 'minItems validation', () => {
+		const schema = json.schema().minItems(1);
+		return schema;
+	});
+
+	test('uniqueItems', 'uniqueItems validation', () => {
+		const schema = json.schema().uniqueItems(true);
+		return schema;
+	});
+
+});
