@@ -229,7 +229,7 @@ export default class Schema extends Builder {
 
 	exclusiveMaximum(value) {
 		// set
-		if (typeof value != 'undefined') {
+		if (isDefined(value)) {
 			this.addKeyword(new ExclusiveMaximum(value));
 			return this;
 		}
@@ -251,7 +251,7 @@ export default class Schema extends Builder {
 
 	exclusiveMinimum(value) {
 		// set
-		if (typeof value != 'undefined') {
+		if (isDefined(value)) {
 			this.addKeyword(new ExclusiveMinimum(value));
 			return this;
 		}
