@@ -16,17 +16,17 @@ export default class AnyOf extends InstanceKeyword {
 			value = Array.prototype.slice.call(arguments);
 		}
 
-		if (value.length) {
-			value.forEach(elem => {
-				if (typeof elem != 'object' || !(elem instanceof Schema)) {
-					throw new Error('array values must be valid Schema instances');
-				}
-			});
-
-			this._value = value;
-
-		} else {
+		if (!value.length) {
 			throw new Error('values must be an array of values with at least one element');
+		}
+
+		value.forEach(elem => {
+			if (typeof elem != 'object' || !(elem instanceof Schema)) {
+				throw new Error('array values must be valid Schema instances');
+			}
+		});
+
+		this._value = value;
 	}
 }
 

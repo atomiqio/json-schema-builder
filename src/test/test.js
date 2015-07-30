@@ -272,6 +272,14 @@ describe.skip('anyOf', function () {
 		return schema;
 	});
 
+	//equivalent - tests non-array arguments
+	test('anyOf', 'anyOf', () => {
+		const schema = json.schema()
+			.anyOf(json.integer(), json.schema().minimum(2));
+
+		return schema;
+	});
+
 	test('anyOf', 'anyOf with base schema', () => {
 		const schema = json.schema()
 			.string()
@@ -291,6 +299,14 @@ describe.skip('oneOf', function () {
 
     return schema;
   });
+
+	//equivalent - tests non-array arguments
+	test('oneOf', 'oneOf', () => {
+		const schema = json.schema()
+			.oneOf(json.integer(), json.schema().minimum(2));
+
+		return schema;
+	});
 
 	test('oneOf', 'oneOf with base schema', () => {
 		const schema = json.schema()
