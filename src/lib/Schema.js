@@ -11,6 +11,7 @@ import Minimum from './Minimum';
 import ExclusiveMaximum from './ExclusiveMaximum';
 import ExclusiveMinimum from './ExclusiveMinimum';
 import MultipleOf from './MultipleOf';
+import Not from './Not';
 import OneOf from './OneOf';
 import Properties from './Properties';
 import PatternProperties from './PatternProperties';
@@ -242,6 +243,17 @@ export default class Schema extends Builder {
 		}
 
 		return this.getKeywordValue(ExclusiveMinimum);
+	}
+
+	not(value) {
+		// set
+		if (value) {
+			this.addKeyword(new Not(value));
+			return this;
+		}
+
+		// get
+		return this.getKeywordValue(Not);
 	}
 
   build(context) {

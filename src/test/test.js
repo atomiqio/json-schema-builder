@@ -422,3 +422,35 @@ describe('minimum and exclusiveMinimum', function () {
 	});
 
 });
+
+describe('not', function () {
+
+	test('not', 'not', () => {
+		const schema = json.schema()
+			.not(json.schema().integer());
+
+		return schema;
+	});
+
+	test('not', 'not multiple types', () => {
+		const schema = json.schema()
+			.not(json.schema().type(['integer', 'boolean']));
+
+		return schema;
+	});
+
+	test('not', 'not more complex schema', () => {
+		const schema = json.schema()
+			.not(json.schema().object().property('foo', json.string()));
+
+		return schema;
+	});
+
+	test('not', 'forbidden property', () => {
+		const schema = json.schema()
+			.property('foo', json.schema().not(json.schema()));
+
+		return schema;
+	});
+
+});
