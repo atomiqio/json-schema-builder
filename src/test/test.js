@@ -467,4 +467,11 @@ describe('object keywords', () => {
     return schema;
   });
 
+  test('required', 'required validation', () => {
+    const schema = json.schema()
+        .property('foo', {}, true)
+        .property('bar', {});
+    return schema;
+  });
+
 });
