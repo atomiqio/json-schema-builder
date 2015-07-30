@@ -16,6 +16,7 @@ import OneOf from './OneOf';
 import Properties from './Properties';
 import PatternProperties from './PatternProperties';
 import AdditionalProperties from './AdditionalProperties';
+import MaxProperties from './MaxProperties';
 
 function isDefined(value) {
   return typeof value !== 'undefined';
@@ -217,7 +218,6 @@ export default class Schema extends Builder {
 	}
 
 	exclusiveMaximum(value) {
-		// set
 		if (isDefined(value)) {
 			this.addKeyword(new ExclusiveMaximum(value));
 			return this;
@@ -236,7 +236,6 @@ export default class Schema extends Builder {
 	}
 
 	exclusiveMinimum(value) {
-		// set
 		if (isDefined(value)) {
 			this.addKeyword(new ExclusiveMinimum(value));
 			return this;
@@ -255,6 +254,14 @@ export default class Schema extends Builder {
 		// get
 		return this.getKeywordValue(Not);
 	}
+  maxProperties(value) {
+    if (isDefined(value)) {
+      this.addKeyword(new MaxProperties(value));
+      return this;
+    }
+
+    return this.getKeywordValue(MaxProperties);
+  }
 
   build(context) {
     context = context || {};
