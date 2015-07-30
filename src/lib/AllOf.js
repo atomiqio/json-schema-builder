@@ -1,7 +1,7 @@
-import InstanceKeyword from './InstanceKeyword';
+import Keyword from './Keyword';
 import Schema from './Schema';
 
-export default class AllOf extends InstanceKeyword {
+export default class AllOf extends Keyword {
 	constructor(value) {
 		super();
 		this.value = value;

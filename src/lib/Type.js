@@ -1,4 +1,4 @@
-import InstanceKeyword from './InstanceKeyword';
+import Keyword from './Keyword';
 import * as _ from 'lodash';
 
 const primitiveTypes = [
@@ -11,7 +11,7 @@ const primitiveTypes = [
   'null'
 ];
 
-export default class Type extends InstanceKeyword {
+export default class Type extends Keyword {
   constructor(value) {
     super();
     this.value = value;

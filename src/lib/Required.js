@@ -1,6 +1,6 @@
-import InstanceKeyword from './InstanceKeyword';
+import Keyword from './Keyword';
 
-export default class Required extends InstanceKeyword {
+export default class Required extends Keyword {
   constructor(value) {
     super();
 
