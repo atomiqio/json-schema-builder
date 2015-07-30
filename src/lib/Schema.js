@@ -185,7 +185,7 @@ export default class Schema extends Builder {
 		}
 
 		// get
-		return _.result(_.find(this.keywords, keyword => keyword instanceof OneOf), 'value');
+		return this.getKeywordValue(OneOf);
 	}
 
   build(context) {
