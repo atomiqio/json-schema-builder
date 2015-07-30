@@ -1,7 +1,7 @@
 import InstanceKeyword from './InstanceKeyword';
 import Schema from './Schema';
 
-export default class AnyOf extends InstanceKeyword {
+export default class OneOf extends InstanceKeyword {
 	constructor(value) {
 		super();
 		this.value = value;
@@ -31,16 +31,18 @@ export default class AnyOf extends InstanceKeyword {
 
 	build(context) {
 		context = context || {};
+
 		if (this.value) {
 			const props = [];
 
 			this.value.forEach(elem => {
-				props.push(elem instanceof Schema ? elem.build() : elem)
+				props.push(elem instanceof Schema ? elem.build() : elem);
 			});
 
-			context['anyOf'] = props;
+			context['oneOf'] = props;
 		}
 
 		return context;
 	}
+
 }
