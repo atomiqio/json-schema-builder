@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import AllOf from './AllOf';
 import AnyOf from './AnyOf';
 import Builder from './Builder';
 import Keyword from './Keyword';
@@ -167,6 +168,17 @@ export default class Schema extends Builder {
 
     return this.getKeywordValue(AdditionalProperties);
   }
+
+	allOf(values) {
+		// set
+		if (values) {
+			this.addKeyword(new AllOf(values));
+			return this;
+		}
+
+		// get
+		return this.getKeywordValue(AllOf);
+	}
 
 	anyOf(value) {
 		if (isDefined(value)) {

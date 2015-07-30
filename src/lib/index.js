@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import assert from 'assert';
-import AnyOf from './AnyOf';
 import Builder from './Builder';
 import Schema from './Schema';
 import Keyword from './Keyword';
