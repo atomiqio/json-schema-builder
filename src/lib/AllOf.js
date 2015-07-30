@@ -4,7 +4,7 @@ import Schema from './Schema';
 export default class AllOf extends Keyword {
 	constructor(value) {
 		super();
-		this.value = value;
+		this.value = arguments.length > 1 ? Array.prototype.slice.call(arguments) : value;
 	}
 
 	get value() {
@@ -12,11 +12,7 @@ export default class AllOf extends Keyword {
 	}
 
 	set value(value) {
-		if (!Array.isArray(value)) {
-			value = Array.prototype.slice.call(arguments);
-		}
-
-		if (!value.length) {
+		if (!Array.isArray(value) || !value.length) {
 			throw new Error('value must be an array with at least one element');
 		}
 

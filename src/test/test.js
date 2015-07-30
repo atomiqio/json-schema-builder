@@ -273,8 +273,7 @@ describe('allOf tests', function () {
 		return schema;
 	});
 
-	//TODO: equivalent - tests non-array arguments
-	test.skip('allOf', 'allOf', () => {
+	test('allOf', 'allOf', () => {
 		const schema = json.schema()
 			.allOf(
 					json.schema().property('bar', json.integer(), true),
@@ -294,8 +293,7 @@ describe('allOf tests', function () {
 		return schema;
 	});
 
-	// TODO: add maximum and minimum
-	test.skip('allOf', 'allOf simple types', () => {
+	test('allOf', 'allOf simple types', () => {
 		const schema = json.schema()
 			.allOf([
 				json.schema().maximum(30),
@@ -306,25 +304,50 @@ describe('allOf tests', function () {
 
 });
 
-// TODO: add minimum, maxLength, and minLength
-describe.skip('anyOf', function () {
+describe('multipleOf', function () {
 
-	test('anyOf', 'anyOf', () => {
+	test('multipleOf', 'by int', () => {
 		const schema = json.schema()
-			.anyOf([json.integer(), json.schema().minimum(2)]);
+			.multipleOf(2);
 
 		return schema;
 	});
 
-	//equivalent - tests non-array arguments
-	test('anyOf', 'anyOf', () => {
+	test('multipleOf', 'by number', () => {
 		const schema = json.schema()
-			.anyOf(json.integer(), json.schema().minimum(2));
+			.multipleOf(1.5);
 
 		return schema;
 	});
 
-	test('anyOf', 'anyOf with base schema', () => {
+	test('multipleOf', 'by small number', () => {
+		const schema = json.schema()
+			.multipleOf(0.0001);
+
+		return schema;
+	});
+
+});
+
+// TODO: add maxLength, and minLength
+describe('anyOf', function () {
+
+	test('anyOf', 'anyOf', () => {
+		const schema = json.schema()
+			.anyOf([json.schema().integer(), json.schema().minimum(2)]);
+
+		return schema;
+	});
+
+	test('anyOf', 'anyOf', () => {
+		const schema = json.schema()
+			.anyOf(json.schema().integer(), json.schema().minimum(2));
+
+		return schema;
+	});
+
+  // TODO add maxLength
+	test.skip('anyOf', 'anyOf with base schema', () => {
 		const schema = json.schema()
 			.string()
 			.anyOf([json.schema().maxLength(2), json.schema().minLength(4)]);
@@ -334,28 +357,66 @@ describe.skip('anyOf', function () {
 
 });
 
-//TODO: add minimum, minlength, and maxLength
-describe.skip('oneOf', function () {
+//TODO: add minlength, and maxLength
+describe('oneOf', function () {
 
   test('oneOf', 'oneOf', () => {
     const schema = json.schema()
-        .oneOf([json.integer(), json.schema().minimum(2)]);
+        .oneOf([json.schema().integer(), json.schema().minimum(2)]);
 
     return schema;
   });
 
-	//equivalent - tests non-array arguments
 	test('oneOf', 'oneOf', () => {
 		const schema = json.schema()
-			.oneOf(json.integer(), json.schema().minimum(2));
+			.oneOf(json.schema().integer(), json.schema().minimum(2));
 
 		return schema;
 	});
 
-	test('oneOf', 'oneOf with base schema', () => {
+  // TODO add maxLength
+	test.skip('oneOf', 'oneOf with base schema', () => {
 		const schema = json.schema()
 				.string()
 				.oneOf([json.schema().minLength(2), json.schema().maxLength(4)]);
+
+		return schema;
+	});
+
+});
+
+describe('maximum and exclusiveMaximum', function () {
+
+	test('maximum', 'maximum validation', () => {
+		const schema = json.schema()
+			  .maximum(3.0);
+
+		return schema;
+	});
+
+	test('maximum', 'exclusiveMaximum validation', () => {
+		const schema = json.schema()
+			  .maximum(3.0)
+				.exclusiveMaximum(true);
+
+		return schema;
+	});
+
+});
+
+describe('minimum and exclusiveMinimum', function () {
+
+	test('minimum', 'minimum validation', () => {
+		const schema = json.schema()
+			.minimum(1.1);
+
+		return schema;
+	});
+
+	test('minimum', 'exclusiveMinimum validation', () => {
+		const schema = json.schema()
+			.minimum(1.1)
+			.exclusiveMinimum(true);
 
 		return schema;
 	});
