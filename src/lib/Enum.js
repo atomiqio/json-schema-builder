@@ -1,6 +1,6 @@
-import InstanceKeyword from './InstanceKeyword';
+import Keyword from './Keyword';
 
-export default class Enum extends InstanceKeyword {
+export default class Enum extends Keyword {
   constructor(value) {
     super();
 
