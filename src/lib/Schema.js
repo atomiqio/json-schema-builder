@@ -17,6 +17,7 @@ import Properties from './Properties';
 import PatternProperties from './PatternProperties';
 import AdditionalProperties from './AdditionalProperties';
 import MaxProperties from './MaxProperties';
+import MinProperties from './MinProperties';
 
 function isDefined(value) {
   return typeof value !== 'undefined';
@@ -254,9 +255,19 @@ export default class Schema extends Builder {
 		// get
 		return this.getKeywordValue(Not);
 	}
+
   maxProperties(value) {
     if (isDefined(value)) {
       this.addKeyword(new MaxProperties(value));
+      return this;
+    }
+
+    return this.getKeywordValue(MaxProperties);
+  }
+
+  minProperties(value) {
+    if (isDefined(value)) {
+      this.addKeyword(new MinProperties(value));
       return this;
     }
 
