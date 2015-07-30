@@ -1,6 +1,6 @@
-import Keyword from './Keyword';
+import ObjectKeyword from './ObjectKeyword';
 
-export default class Required extends Keyword {
+export default class Required extends ObjectKeyword {
   constructor(value) {
     super();
 
@@ -24,7 +24,7 @@ export default class Required extends Keyword {
 
   build(context) {
     context = context || {};
-    context['required'] = this.value;
+    context.required = this.value;
     return context;
   }
 }
