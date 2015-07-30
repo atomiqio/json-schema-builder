@@ -21,7 +21,7 @@ export default class MaxItems extends ArrayKeyword {
 	build(context) {
 		context = context || {};
 
-		context['maxItems'] = this.value;
+		context.maxItems = this.value;
 		return context;
 	}
 }
