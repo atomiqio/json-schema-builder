@@ -12,10 +12,10 @@ export default class Items extends ArrayKeyword {
 	}
 
 	set value(value) {
-		if ((typeof value == 'object' && value instanceof Schema) || Array.isArray(value)) {
+		if (value instanceof Schema || Array.isArray(value)) {
 			if (Array.isArray(value)) {
 				value.forEach(v => {
-					if (typeof v !== 'object' && !(v instanceof Schema)) {
+					if (!(v instanceof Schema)) {
 						throw new Error('array values must be Schema instances');
 					}
 				});
