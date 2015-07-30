@@ -59,7 +59,7 @@ test.skip = function () {
   it.skip(arguments[0] + ' => ' + arguments[1], function () {});
 }
 
-describe('any instance type keywords', () => {
+describe('generic keywords (any instance type)', () => {
 
   describe('enum', function () {
 
@@ -265,6 +265,10 @@ describe('any instance type keywords', () => {
       return schema;
     });
 
+  });
+
+  describe('type', function () {
+
     test('not', 'not multiple types', () => {
       const schema = json.schema()
           .not(json.schema().type(['integer', 'boolean']));
@@ -412,67 +416,87 @@ describe('object keywords', () => {
     return schema;
   });
 
+  describe.skip('definitions', () => {
+
+    test('definitions', 'valid definition', () => {
+      const schema = json.schema()
+          .definitions({ $ref: 'http://json-schema.org/draft-04/schema#' });
+
+      return schema;
+    });
+
+    test('definitions', 'invalid definition', () => {
+      const schema = json.schema()
+          .definitions({ $ref: 'http://json-schema.org/draft-04/schema#' });
+      return schema;
+    });
+
+  });
 });
 
-describe('multipleOf', function () {
+describe ('numeric keywords', () => {
 
-  test('multipleOf', 'by int', () => {
-    const schema = json.schema()
-        .multipleOf(2);
+  describe('multipleOf', function () {
 
-    return schema;
+    test('multipleOf', 'by int', () => {
+      const schema = json.schema()
+          .multipleOf(2);
+
+      return schema;
+    });
+
+    test('multipleOf', 'by number', () => {
+      const schema = json.schema()
+          .multipleOf(1.5);
+
+      return schema;
+    });
+
+    test('multipleOf', 'by small number', () => {
+      const schema = json.schema()
+          .multipleOf(0.0001);
+
+      return schema;
+    });
+
   });
 
-  test('multipleOf', 'by number', () => {
-    const schema = json.schema()
-        .multipleOf(1.5);
+  describe('maximum and exclusiveMaximum', function () {
 
-    return schema;
+    test('maximum', 'maximum validation', () => {
+      const schema = json.schema()
+          .maximum(3.0);
+
+      return schema;
+    });
+
+    test('maximum', 'exclusiveMaximum validation', () => {
+      const schema = json.schema()
+          .maximum(3.0)
+          .exclusiveMaximum(true);
+
+      return schema;
+    });
+
   });
 
-  test('multipleOf', 'by small number', () => {
-    const schema = json.schema()
-        .multipleOf(0.0001);
+  describe('minimum and exclusiveMinimum', function () {
 
-    return schema;
-  });
+    test('minimum', 'minimum validation', () => {
+      const schema = json.schema()
+          .minimum(1.1);
 
-});
+      return schema;
+    });
 
-describe('maximum and exclusiveMaximum', function () {
+    test('minimum', 'exclusiveMinimum validation', () => {
+      const schema = json.schema()
+          .minimum(1.1)
+          .exclusiveMinimum(true);
 
-  test('maximum', 'maximum validation', () => {
-    const schema = json.schema()
-        .maximum(3.0);
+      return schema;
+    });
 
-    return schema;
-  });
-
-  test('maximum', 'exclusiveMaximum validation', () => {
-    const schema = json.schema()
-        .maximum(3.0)
-        .exclusiveMaximum(true);
-
-    return schema;
-  });
-
-});
-
-describe('minimum and exclusiveMinimum', function () {
-
-  test('minimum', 'minimum validation', () => {
-    const schema = json.schema()
-        .minimum(1.1);
-
-    return schema;
-  });
-
-  test('minimum', 'exclusiveMinimum validation', () => {
-    const schema = json.schema()
-        .minimum(1.1)
-        .exclusiveMinimum(true);
-
-    return schema;
   });
 
 });
@@ -548,25 +572,26 @@ describe('array keywords', () => {
 
 describe('string keywords', () => {
 
-	test('maxLength', 'maxLength validation', () => {
-		const schema = json.schema().maxLength(2);
-		return schema;
-	});
+  test('maxLength', 'maxLength validation', () => {
+    const schema = json.schema().maxLength(2);
+    return schema;
+  });
 
-	test('minLength', 'minLength validation', () => {
-		const schema = json.schema().minLength(2);
-		return schema;
-	});
+  test('minLength', 'minLength validation', () => {
+    const schema = json.schema().minLength(2);
+    return schema;
+  });
 
 
-	test('pattern', 'pattern validation', () => {
-		const schema = json.schema().pattern('^a*$');
-		return schema;
-	});
+  test('pattern', 'pattern validation', () => {
+    const schema = json.schema().pattern('^a*$');
+    return schema;
+  });
 
-	test('pattern', 'pattern is not anchored', () => {
-		const schema = json.schema().pattern('a+');
-		return schema;
-	});
+  test('pattern', 'pattern is not anchored', () => {
+    const schema = json.schema().pattern('a+');
+    return schema;
+  });
 
 });
+

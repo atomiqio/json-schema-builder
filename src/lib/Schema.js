@@ -1,31 +1,32 @@
 import * as _ from 'lodash';
 import AdditionalItems from './AdditionalItems';
+import AdditionalProperties from './AdditionalProperties';
 import AllOf from './AllOf';
 import AnyOf from './AnyOf';
 import Builder from './Builder';
-import Items from './Items';
-import Keyword from './Keyword';
-import Type from './Type';
-import Required from './Required';
+import Definitions from './Definitions';
 import Enum from './Enum';
-import MaxItems from './MaxItems';
-import MinItems from './MinItems';
-import UniqueItems from './UniqueItems';
-import Maximum from './Maximum';
-import Minimum from './Minimum';
 import ExclusiveMaximum from './ExclusiveMaximum';
 import ExclusiveMinimum from './ExclusiveMinimum';
-import MultipleOf from './MultipleOf';
+import Items from './Items';
+import Keyword from './Keyword';
+import Maximum from './Maximum';
+import MaxItems from './MaxItems';
 import MaxLength from './MaxLength';
+import MaxProperties from './MaxProperties';
+import Minimum from './Minimum';
+import MinItems from './MinItems';
 import MinLength from './MinLength';
-import Pattern from './Pattern';
+import MinProperties from './MinProperties';
+import MultipleOf from './MultipleOf';
 import Not from './Not';
 import OneOf from './OneOf';
-import Properties from './Properties';
+import Pattern from './Pattern';
 import PatternProperties from './PatternProperties';
-import AdditionalProperties from './AdditionalProperties';
-import MaxProperties from './MaxProperties';
-import MinProperties from './MinProperties';
+import Properties from './Properties';
+import Required from './Required';
+import Type from './Type';
+import UniqueItems from './UniqueItems';
 
 function isDefined(value) {
   return typeof value !== 'undefined';
@@ -352,7 +353,16 @@ export default class Schema extends Builder {
 		return this.getKeywordValue(Pattern);
 	}
 
-  build(context) {
+	definitions(value) {
+		if (value) {
+			this.addKeyword(new Definitions(value));
+			return this;
+		}
+
+		return this.getKeywordValue(Definitions);
+	}
+
+	build(context) {
     context = context || {};
 
     this.keywords.forEach(keyword => {
