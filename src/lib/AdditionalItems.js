@@ -26,7 +26,7 @@ export default class AdditionalItems extends ArrayKeyword {
 			? this.value.build({})
 			: this.value;
 
-		context['additionalItems'] = value;
+		context.additionalItems = value;
 
 		return context;
 	}
