@@ -28,7 +28,6 @@ export default class AnyOf extends InstanceKeyword {
 
 		this._value = value;
 	}
-}
 
 	build(context) {
 		context = context || {};
