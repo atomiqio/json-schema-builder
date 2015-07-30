@@ -473,6 +473,7 @@ describe('array keywords', () => {
 
 	test('items', 'a schema given for items', () => {
 		const schema = json.schema()
+			//TODO: implement helper function for returning valid schema for given type
 			.items(json.schema().integer());
 
 		return schema;
