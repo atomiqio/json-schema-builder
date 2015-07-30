@@ -462,4 +462,9 @@ describe('object keywords', () => {
     return schema;
   });
 
+  test('minProperties', 'minProperties validation', () => {
+    const schema = json.schema().minProperties(1);
+    return schema;
+  });
+
 });
