@@ -1,11 +1,16 @@
 import * as _ from 'lodash';
+import AdditionalItems from './AdditionalItems';
 import AllOf from './AllOf';
 import AnyOf from './AnyOf';
 import Builder from './Builder';
+import Items from './Items';
 import Keyword from './Keyword';
 import Type from './Type';
 import Required from './Required';
 import Enum from './Enum';
+import MaxItems from './MaxItems';
+import MinItems from './MinItems';
+import UniqueItems from './UniqueItems';
 import Maximum from './Maximum';
 import Minimum from './Minimum';
 import ExclusiveMaximum from './ExclusiveMaximum';
@@ -246,13 +251,11 @@ export default class Schema extends Builder {
 	}
 
 	not(value) {
-		// set
 		if (value) {
 			this.addKeyword(new Not(value));
 			return this;
 		}
 
-		// get
 		return this.getKeywordValue(Not);
 	}
 
@@ -273,6 +276,51 @@ export default class Schema extends Builder {
 
     return this.getKeywordValue(MaxProperties);
   }
+
+	additionalItems(value) {
+		if (isDefined(value)) {
+			this.addKeyword(new AdditionalItems(value));
+			return this;
+		}
+
+		return this.getKeywordValue(AdditionalItems);
+	}
+
+	items(value) {
+		if (value) {
+			this.addKeyword(new Items(value));
+			return this;
+		}
+
+		return this.getKeywordValue(Items);
+	}
+
+	maxItems(value) {
+		if (value) {
+			this.addKeyword(new MaxItems(value));
+			return this;
+		}
+
+		return this.getKeywordValue(MaxItems);
+	}
+
+	minItems(value) {
+		if (value) {
+			this.addKeyword(new MinItems(value));
+			return this;
+		}
+
+		return this.getKeywordValue(MinItems);
+	}
+
+	uniqueItems(value) {
+		if (isDefined(value)) {
+			this.addKeyword(new UniqueItems(value));
+			return this;
+		}
+
+		return this.getKeywordValue(UniqueItems);
+	}
 
   build(context) {
     context = context || {};
