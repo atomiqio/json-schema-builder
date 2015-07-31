@@ -6,8 +6,7 @@ import * as json from '../lib';
 
 const draft4 = testSuite.draft4();
 
-// TODO set to false
-const verbose = true;
+const verbose = false;
 
 function print() {
   if (verbose) {
