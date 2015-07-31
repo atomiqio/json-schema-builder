@@ -546,3 +546,11 @@ describe('array keywords', () => {
 
 });
 
+describe('string keywords', () => {
+
+	test('maxLength', 'maxLength validation', () => {
+		const schema = json.schema().maxLength(2);
+		return schema;
+	});
+
+});

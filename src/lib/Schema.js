@@ -16,6 +16,7 @@ import Minimum from './Minimum';
 import ExclusiveMaximum from './ExclusiveMaximum';
 import ExclusiveMinimum from './ExclusiveMinimum';
 import MultipleOf from './MultipleOf';
+import MaxLength from './MaxLength';
 import Not from './Not';
 import OneOf from './OneOf';
 import Properties from './Properties';
@@ -320,6 +321,15 @@ export default class Schema extends Builder {
 		}
 
 		return this.getKeywordValue(UniqueItems);
+	}
+
+	maxLength(value) {
+		if (value) {
+			this.addKeyword(new MaxLength(value));
+			return this;
+		}
+
+		return this.getKeywordValue(MaxLength);
 	}
 
   build(context) {
