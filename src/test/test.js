@@ -553,4 +553,9 @@ describe('string keywords', () => {
 		return schema;
 	});
 
+	test('minLength', 'minLength validation', () => {
+		const schema = json.schema().minLength(2);
+		return schema;
+	});
+
 });
