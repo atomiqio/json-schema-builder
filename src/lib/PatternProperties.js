@@ -1,8 +1,8 @@
 import Builder from './Builder';
 import Schema from './Schema';
-import Keyword from './Keyword';
+import ObjectKeyword from './ObjectKeyword';
 
-export default class PatternProperties extends Keyword {
+export default class PatternProperties extends ObjectKeyword {
   constructor(value) {
     super();
     this.value = value;
