@@ -15,11 +15,10 @@ export default class Dependencies extends ObjectKeyword {
 	set value(value) {
 		if (typeof value == 'object' && !Array.isArray(value)) {
 			for (let prop in value) {
-				if (typeof prop == 'object' && !Array.isArray(prop) && !(prop instanceof Schema)) {
-					throw new Error('object properties must be Schema instances');
+				if ((typeof prop == 'object' && !(prop instanceof Schema)) && !Array.isArray(prop)) {
+					throw new Error('value property must be array or Schema instance');
 				}
-
-				if (Array.isArray(prop)) {
+				else if (Array.isArray(prop)) {
 					if (!prop.length) {
 						throw new Error('array must have at least one item');
 					}
