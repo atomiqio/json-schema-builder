@@ -5,6 +5,7 @@ import AllOf from './AllOf';
 import AnyOf from './AnyOf';
 import Builder from './Builder';
 import Definitions from './Definitions';
+import Dependencies from './Dependencies';
 import Enum from './Enum';
 import ExclusiveMaximum from './ExclusiveMaximum';
 import ExclusiveMinimum from './ExclusiveMinimum';
@@ -362,6 +363,15 @@ export default class Schema extends Builder {
 
 		return this.getKeywordValue(Definitions);
 	}
+
+  dependencies(value) {
+    if (value) {
+      this.addKeyword(new Dependencies(value));
+      return this;
+    }
+
+    return this.getKeywordValue(Dependencies);
+  }
 
   $ref(value) {
     if (isDefined(value)) {

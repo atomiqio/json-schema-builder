@@ -296,6 +296,24 @@ describe('generic keywords (any instance type)', () => {
 
 describe('object keywords', () => {
 
+	describe('dependencies', () => {
+
+		test('dependencies', 'dependencies', () => {
+			const schema = json.schema()
+				.dependencies({'bar': ['foo']});
+
+			return schema;
+		});
+
+		test('dependencies', 'multiple dependencies', () => {
+			const schema = json.schema()
+				.dependencies({'quux': ['foo', 'bar']});
+
+			return schema;
+		});
+
+	});
+
   describe('properties', function () {
 
     test('properties', 'object properties validation', () => {
