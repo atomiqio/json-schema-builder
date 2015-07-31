@@ -546,3 +546,27 @@ describe('array keywords', () => {
 
 });
 
+describe('string keywords', () => {
+
+	test('maxLength', 'maxLength validation', () => {
+		const schema = json.schema().maxLength(2);
+		return schema;
+	});
+
+	test('minLength', 'minLength validation', () => {
+		const schema = json.schema().minLength(2);
+		return schema;
+	});
+
+
+	test('pattern', 'pattern validation', () => {
+		const schema = json.schema().pattern('^a*$');
+		return schema;
+	});
+
+	test('pattern', 'pattern is not anchored', () => {
+		const schema = json.schema().pattern('a+');
+		return schema;
+	});
+
+});
