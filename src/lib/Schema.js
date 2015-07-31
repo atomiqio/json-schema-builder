@@ -149,7 +149,7 @@ export default class Schema extends Builder {
   }
 
   patternProperty(name, value) {
-    if (name) {
+    if (isDefined(name)) {
       if (typeof name == 'object') {
         Object.keys(name).forEach(key => {
           this.patternProperty(key, name[key]);
@@ -162,7 +162,7 @@ export default class Schema extends Builder {
         properties.add(name, value);
       } else {
         const prop = {};
-        prop[name] = value;
+        prop[name] = value || {};
         this.patternProperties(prop);
       }
 
