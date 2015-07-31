@@ -14,7 +14,7 @@ function print() {
     if (typeof arguments[0] == 'object') {
       console.log(JSON.stringify(arguments[0], null, 2));
     } else {
-      console.log.call(...arguments);
+      console.log(...arguments);
     }
   }
 }
@@ -217,8 +217,7 @@ describe('generic keywords (any instance type)', () => {
       return schema;
     });
 
-    // TODO add maxLength
-    test.skip('anyOf', 'anyOf with base schema', () => {
+    test('anyOf', 'anyOf with base schema', () => {
       const schema = json.schema()
           .string()
           .anyOf([json.schema().maxLength(2), json.schema().minLength(4)]);
@@ -228,7 +227,6 @@ describe('generic keywords (any instance type)', () => {
 
   });
 
-//TODO: add minlength, and maxLength
   describe('oneOf', function () {
 
     test('oneOf', 'oneOf', () => {
@@ -245,8 +243,7 @@ describe('generic keywords (any instance type)', () => {
       return schema;
     });
 
-    // TODO add maxLength
-    test.skip('oneOf', 'oneOf with base schema', () => {
+    test('oneOf', 'oneOf with base schema', () => {
       const schema = json.schema()
           .string()
           .oneOf([json.schema().minLength(2), json.schema().maxLength(4)]);
@@ -296,23 +293,23 @@ describe('generic keywords (any instance type)', () => {
 
 describe('object keywords', () => {
 
-	describe('dependencies', () => {
+  describe('dependencies', () => {
 
-		test('dependencies', 'dependencies', () => {
-			const schema = json.schema()
-				.dependencies({'bar': ['foo']});
+    test('dependencies', 'dependencies', () => {
+      const schema = json.schema()
+          .dependencies({ 'bar': ['foo'] });
 
-			return schema;
-		});
+      return schema;
+    });
 
-		test('dependencies', 'multiple dependencies', () => {
-			const schema = json.schema()
-				.dependencies({'quux': ['foo', 'bar']});
+    test('dependencies', 'multiple dependencies', () => {
+      const schema = json.schema()
+          .dependencies({ 'quux': ['foo', 'bar'] });
 
-			return schema;
-		});
+      return schema;
+    });
 
-	});
+  });
 
   describe('properties', function () {
 
@@ -335,10 +332,13 @@ describe('object keywords', () => {
       return schema;
     });
 
-    test.skip('properties', 'properties, patternProperties, additionalProperties interaction', () => {
-      const schema = json.schema();
-
-      // TODO implement patternProperties, additionalProperties
+    test('properties', 'properties, patternProperties, additionalProperties interaction', () => {
+      // PAY ATTENTION to the values being schemas to build properly
+      const schema = json.schema()
+          .property('foo', json.schema().array().maxItems(3))
+          .property('bar', json.array())
+          .patternProperty('f.o', json.schema().minItems(2))
+          .additionalProperties(json.schema().integer());
 
       return schema;
     });
@@ -362,11 +362,14 @@ describe('object keywords', () => {
     // equivalent
     test('patternProperties', 'patternProperties validates properties matching a regex', () => {
       const schema = json.schema().patternProperty({ 'f.*o': json.integer() });
-
       return schema;
     });
 
-    test.skip('patternProperties', 'multiple simultaneous patternProperties are validated', () => {
+    test('patternProperties', 'multiple simultaneous patternProperties are validated', () => {
+      const schema = json.schema()
+          .patternProperty('a*', json.integer())
+          .patternProperty('aaa*', json.maximum(20))
+      return schema;
     });
 
     test('patternProperties', 'regexes are not anchored by default and are case sensitive', () => {
@@ -446,23 +449,10 @@ describe('object keywords', () => {
       return schema;
     });
 
-    test.skip('definitions', 'invalid definition', () => {
-      const schema = json.schema()
-          .definitions({ $ref: 'http://json-schema.org/draft-04/schema#' });
-
-      return schema;
-    });
-
-    test.skip('definitions', 'invalid definition', () => {
-      const schema = json.schema()
-          .definitions({ $ref: 'http://json-schema.org/draft-04/schema#' });
-      return schema;
-    });
-
   });
 });
 
-describe ('numeric keywords', () => {
+describe('numeric keywords', () => {
 
   describe('multipleOf', function () {
 
