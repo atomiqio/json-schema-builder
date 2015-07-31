@@ -558,4 +558,15 @@ describe('string keywords', () => {
 		return schema;
 	});
 
+
+	test('pattern', 'pattern validation', () => {
+		const schema = json.schema().pattern('^a*$');
+		return schema;
+	});
+
+	test('pattern', 'pattern is not anchored', () => {
+		const schema = json.schema().pattern('a+');
+		return schema;
+	});
+
 });
