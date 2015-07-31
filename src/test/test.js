@@ -416,16 +416,26 @@ describe('object keywords', () => {
     return schema;
   });
 
-  describe.skip('definitions', () => {
+  describe('definitions', () => {
 
     test('definitions', 'valid definition', () => {
+      const schema = json.schema().$ref('http://json-schema.org/draft-04/schema#');
+      return schema;
+    });
+
+    test('definitions', 'valid definition', () => {
+      const schema = json.schema().$ref('http://json-schema.org/draft-04/schema#');
+      return schema;
+    });
+
+    test.skip('definitions', 'invalid definition', () => {
       const schema = json.schema()
           .definitions({ $ref: 'http://json-schema.org/draft-04/schema#' });
 
       return schema;
     });
 
-    test('definitions', 'invalid definition', () => {
+    test.skip('definitions', 'invalid definition', () => {
       const schema = json.schema()
           .definitions({ $ref: 'http://json-schema.org/draft-04/schema#' });
       return schema;

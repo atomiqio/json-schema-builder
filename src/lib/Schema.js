@@ -24,6 +24,7 @@ import OneOf from './OneOf';
 import Pattern from './Pattern';
 import PatternProperties from './PatternProperties';
 import Properties from './Properties';
+import RefKeyword from './RefKeyword';
 import Required from './Required';
 import Type from './Type';
 import UniqueItems from './UniqueItems';
@@ -361,6 +362,15 @@ export default class Schema extends Builder {
 
 		return this.getKeywordValue(Definitions);
 	}
+
+  $ref(value) {
+    if (isDefined(value)) {
+      this.addKeyword(new RefKeyword(value));
+      return this;
+    }
+
+    return this.getKeywordValue(RefKeyword);
+  }
 
 	build(context) {
     context = context || {};
