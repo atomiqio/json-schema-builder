@@ -1,7 +1,7 @@
 import Schema from './Schema';
-import Keyword from './Keyword';
+import ObjectKeyword from './ObjectKeyword';
 
-export default class AdditionalProperties extends Keyword {
+export default class AdditionalProperties extends ObjectKeyword {
   constructor(value) {
     super();
     this.value = value;
