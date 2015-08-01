@@ -413,6 +413,12 @@ describe('object keywords', () => {
       return schema;
     });
 
+		test('additionalProperties', 'additionalProperties can exist by itself', () => {
+			const schema = json.schema().additionalProperties(json.schema().boolean());
+
+			return schema;
+		});
+
     test('additionalProperties', 'additionalProperties are allowed by default', () => {
       const schema = json.schema()
           .properties({
