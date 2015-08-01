@@ -19,7 +19,7 @@ export default class MaxProperties extends ObjectKeyword {
   }
 
   build(context) {
-    context = context || 0;
+    context = context || {};
     context.maxProperties = this.value;
     return context;
   }

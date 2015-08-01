@@ -26,7 +26,7 @@ export default class Not extends Keyword {
 			? this.value.build({})
 			: this.value;
 
-		context['not'] = value;
+		context.not = value;
 		return context;
 	}
 }

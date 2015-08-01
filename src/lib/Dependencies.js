@@ -25,7 +25,7 @@ export default class Dependencies extends ObjectKeyword {
 					}
 
 					if (uniq(prop).length != prop.length) {
-						throw new Error('array items must must be unique');
+						throw new Error('array items must be unique');
 					}
 
 					prop.forEach(elem => {

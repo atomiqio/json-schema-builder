@@ -13,12 +13,12 @@ export default class AnyOf extends Keyword {
 
 	set value(value) {
 		if (!Array.isArray(value) || !value.length) {
-			throw new Error('values must be an array of values with at least one element');
+			throw new Error('value must be an array of values with at least one element');
 		}
 
 		value.forEach(elem => {
 			if (typeof elem != 'object' || !(elem instanceof Schema)) {
-				throw new Error('array values must be valid Schema instances');
+				throw new Error('array value must be a valid Schema instance');
 			}
 		});
 
@@ -34,7 +34,7 @@ export default class AnyOf extends Keyword {
 				props.push(elem instanceof Schema ? elem.build() : elem)
 			});
 
-			context['anyOf'] = props;
+			context.anyOf = props;
 		}
 
 		return context;

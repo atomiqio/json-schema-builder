@@ -13,7 +13,7 @@ export default class OneOf extends Keyword {
 
 	set value(value) {
 		if (!Array.isArray(value) || !value.length) {
-			throw new Error('values must be an array of values with at least one element');
+			throw new Error('value must be an array of values with at least one element');
 		}
 
 		value.forEach(elem => {
@@ -35,7 +35,7 @@ export default class OneOf extends Keyword {
 				props.push(elem instanceof Schema ? elem.build() : elem);
 			});
 
-			context['oneOf'] = props;
+			context.oneOf = props;
 		}
 
 		return context;

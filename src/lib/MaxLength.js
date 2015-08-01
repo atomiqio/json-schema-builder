@@ -14,7 +14,7 @@ export default class MaxLength extends StringKeyword {
 		if (value >= 0 && Number.isInteger(value)) {
 			this._value = value;
 		} else {
-			throw new Error('value must be an integer and greater than or equal to zero');
+			throw new Error('value must be an integer and greater than or equal to 0');
 		}
 	}
 

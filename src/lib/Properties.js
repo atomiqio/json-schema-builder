@@ -51,7 +51,7 @@ export default class Properties extends ObjectKeyword {
             : this.value[key];
       });
 
-      context['properties'] = props;
+      context.properties = props;
     }
 
     return context;

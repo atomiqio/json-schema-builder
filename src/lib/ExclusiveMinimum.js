@@ -14,7 +14,7 @@ export default class ExclusiveMinimum extends NumberKeyword {
 		if (typeof value == 'boolean') {
 			this._value = value;
 		} else {
-			throw new Error('value must be an boolean value');
+			throw new Error('value must be a boolean value');
 		}
 	}
 
@@ -22,10 +22,10 @@ export default class ExclusiveMinimum extends NumberKeyword {
 		context = context || {};
 
 		if (!context.hasOwnProperty('minimum')) {
-			throw new Error("minimum must be present with exclusiveMinimum");
+			throw new Error('minimum must be present with exclusiveMinimum');
 		}
 
-		context['exclusiveMinimum'] = this.value;
+		context.exclusiveMinimum = this.value;
 		return context;
 	}
 }

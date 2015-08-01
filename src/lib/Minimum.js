@@ -21,7 +21,7 @@ export default class Minimum extends NumberKeyword {
 	build(context) {
 		context = context || {};
 
-		context['minimum'] = this.value;
+		context.minimum = this.value;
 		return context;
 	}
 }

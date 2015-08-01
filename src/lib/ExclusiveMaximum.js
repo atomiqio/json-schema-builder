@@ -14,7 +14,7 @@ export default class ExclusiveMaximum extends NumberKeyword {
 		if (typeof value == 'boolean') {
 			this._value = value;
 		} else {
-			throw new Error('value must be an boolean value');
+			throw new Error('value must be a boolean value');
 		}
 	}
 
@@ -25,7 +25,7 @@ export default class ExclusiveMaximum extends NumberKeyword {
 			throw new Error("maximum must be present with exclusiveMaximum");
 		}
 
-		context['exclusiveMaximum'] = this.value;
+		context.exclusiveMaximum = this.value;
 		return context;
 	}
 }

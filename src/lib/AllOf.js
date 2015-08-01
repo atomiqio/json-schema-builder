@@ -35,7 +35,7 @@ export default class AllOf extends Keyword {
 				props.push(elem instanceof Schema ? elem.build() : elem);
 			});
 
-			context['allOf'] = props;
+			context.allOf = props;
 		}
 
 		return context;

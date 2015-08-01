@@ -8,7 +8,7 @@ export default class MultipleOf extends NumberKeyword {
 
 	set value(value) {
 		if (typeof value != 'number' || value <= 0) {
-			throw new Error('value must be a number greater than zero');
+			throw new Error('value must be a number greater than 0');
 		}
 
 		this._value = value;
@@ -21,7 +21,7 @@ export default class MultipleOf extends NumberKeyword {
 	build(context) {
 		context = context || {};
 
-		context['multipleOf'] = this.value;
+		context.multipleOf = this.value;
 		return context;
 	}
 }

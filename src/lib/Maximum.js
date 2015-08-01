@@ -21,7 +21,7 @@ export default class Maximum extends NumberKeyword {
 	build(context) {
 		context = context || {};
 
-		context['maximum'] = this.value;
+		context.maximum = this.value;
 		return context;
 	}
 }

@@ -15,7 +15,7 @@ export default class AdditionalItems extends ArrayKeyword {
 		if (typeof value == 'boolean' || typeof value == 'object' || value instanceof Schema) {
 			this._value = value;
 		} else {
-			throw new Error('value must be an boolean value or a Schema instance');
+			throw new Error('value must be a boolean value or a Schema instance');
 		}
 	}
 

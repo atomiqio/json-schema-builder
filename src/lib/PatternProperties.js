@@ -57,7 +57,7 @@ export default class PatternProperties extends ObjectKeyword {
             : this.value[key];
       });
 
-      context['patternProperties'] = props;
+      context.patternProperties = props;
     }
 
     return context;

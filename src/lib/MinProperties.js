@@ -19,7 +19,7 @@ export default class MinProperties extends ObjectKeyword {
   }
 
   build(context) {
-    context = context || 0;
+    context = context || {};
     context.minProperties = this.value;
     return context;
   }

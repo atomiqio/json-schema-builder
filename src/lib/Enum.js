@@ -28,7 +28,7 @@ export default class Enum extends Keyword {
 
   build(context) {
     context = context || {};
-    context['enum'] = this.value;
+    context.enum = this.value;
     return context;
   }
 }
