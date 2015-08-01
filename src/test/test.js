@@ -308,6 +308,18 @@ describe('object keywords', () => {
       return schema;
     });
 
+		test('dependencies', 'multiple dependencies subschema', ()=> {
+			const schema = json.schema()
+				.dependencies({
+												bar: json.schema().properties({
+													foo: json.schema().integer(),
+													bar: json.schema().integer()
+												})
+											});
+
+			return schema;
+		});
+
   });
 
   describe('properties', function () {
@@ -358,11 +370,11 @@ describe('object keywords', () => {
       return schema;
     });
 
-    // equivalent
-    test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-      const schema = json.schema().patternProperty({ 'f.*o': json.integer() });
-      return schema;
-    });
+		// equivalent
+		test('patternProperties', 'patternProperties validates properties matching a regex', () => {
+			const schema = json.schema().patternProperty({ 'f.*o': json.integer() });
+			return schema;
+		});
 
     test('patternProperties', 'multiple simultaneous patternProperties are validated', () => {
       const schema = json.schema()
@@ -406,6 +418,12 @@ describe('object keywords', () => {
 
       return schema;
     });
+
+		test('additionalProperties', 'additionalProperties can exist by itself', () => {
+			const schema = json.schema().additionalProperties(json.schema().boolean());
+
+			return schema;
+		});
 
     test('additionalProperties', 'additionalProperties are allowed by default', () => {
       const schema = json.schema()
