@@ -3,8 +3,8 @@ var gutil = require('gulp-util');
 var mocha = require('gulp-mocha');
 var babel = require("gulp-babel");
 var sourcemaps = require('gulp-sourcemaps');
-var clean = require('gulp-rimraf');
 var path = require('path');
+var del = require('del');
 
 var babelOptions = {
   // http://babeljs.io/docs/usage/experimental/
@@ -29,9 +29,8 @@ var paths = {
 
 gulp.task('default', ['test', 'watch']);
 
-gulp.task('clean', function() {
-  return gulp.src(paths.dist, { read: false })
-      .pipe(clean());
+gulp.task('clean', function(cb) {
+  del(paths.dist, cb);
 });
 
 gulp.task('babel', ['clean'], function () {

@@ -31,11 +31,11 @@
   "devDependencies": {
     "babel": "^5.4.7",
     "chalk": "^1.1.0",
+    "del": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-concat": "^2.5.2",
     "gulp-mocha": "^2.1.0",
-    "gulp-rimraf": "^0.1.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.5",
     "json-schema-test-suite": "0.0.10",
