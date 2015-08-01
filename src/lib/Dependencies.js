@@ -1,4 +1,5 @@
 import ObjectKeyword from './ObjectKeyword';
+import Builder from './Builder';
 import Schema from './Schema';
 import { uniq } from 'lodash';
 
@@ -44,7 +45,19 @@ export default class Dependencies extends ObjectKeyword {
 	build(context) {
 		context = context || {};
 
-		context.dependencies = this.value;
+		if (this.value) {
+			const props = {};
+			Object.keys(this.value).forEach(key => {
+				let ctx = {};
+				const value = this.value[key];
+				props[key] = (value instanceof Builder)
+					? this.value[key].build(ctx)
+					: this.value[key];
+			});
+
+			context.dependencies = props;
+		}
+
 		return context;
 	}
 }

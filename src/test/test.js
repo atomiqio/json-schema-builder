@@ -308,6 +308,18 @@ describe('object keywords', () => {
       return schema;
     });
 
+		test('dependencies', 'multiple dependencies subschema', ()=> {
+			const schema = json.schema()
+				.dependencies({
+												bar: json.schema().properties({
+													foo: json.schema().integer(),
+													bar: json.schema().integer()
+												})
+											});
+
+			return schema;
+		});
+
   });
 
   describe('properties', function () {
