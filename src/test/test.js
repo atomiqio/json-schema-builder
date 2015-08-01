@@ -358,12 +358,6 @@ describe('object keywords', () => {
       return schema;
     });
 
-    // equivalent
-    test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-      const schema = json.schema().patternProperty({ 'f.*o': json.integer() });
-      return schema;
-    });
-
     test('patternProperties', 'multiple simultaneous patternProperties are validated', () => {
       const schema = json.schema()
           .patternProperty('a*', json.integer())
