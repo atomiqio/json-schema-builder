@@ -18,7 +18,7 @@ export default class MinLength extends StringKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.minLength = this.value;

@@ -18,7 +18,7 @@ export default class MaxLength extends StringKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.maxLength = this.value;

@@ -382,11 +382,11 @@ export default class Schema extends Builder {
     return this.getKeywordValue(RefKeyword);
   }
 
-	build(context) {
+	json(context) {
     context = context || {};
 
     this.keywords.forEach(keyword => {
-      keyword.build(context);
+      keyword.json(context);
     });
 
     return context;

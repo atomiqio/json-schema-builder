@@ -19,11 +19,11 @@ export default class Not extends Keyword {
 		this._value = value;
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		const value = (this.value instanceof Schema)
-			? this.value.build({})
+			? this.value.json({})
 			: this.value;
 
 		context.not = value;

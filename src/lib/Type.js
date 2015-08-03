@@ -37,7 +37,7 @@ export default class Type extends Keyword {
     return this._value;
   }
 
-  build(context) {
+  json(context) {
     context = context || {};
     context.type = this.value;
     return context;

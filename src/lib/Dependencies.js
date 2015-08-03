@@ -42,7 +42,7 @@ export default class Dependencies extends ObjectKeyword {
 		this._value = value;
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		if (this.value) {
@@ -51,7 +51,7 @@ export default class Dependencies extends ObjectKeyword {
 				let ctx = {};
 				const value = this.value[key];
 				props[key] = (value instanceof Builder)
-					? this.value[key].build(ctx)
+					? this.value[key].json(ctx)
 					: this.value[key];
 			});
 

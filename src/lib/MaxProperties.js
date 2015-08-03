@@ -18,7 +18,7 @@ export default class MaxProperties extends ObjectKeyword {
     }
   }
 
-  build(context) {
+  json(context) {
     context = context || {};
     context.maxProperties = this.value;
     return context;

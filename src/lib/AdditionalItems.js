@@ -19,11 +19,11 @@ export default class AdditionalItems extends ArrayKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		const value = (this.value instanceof Schema)
-			? this.value.build({})
+			? this.value.json({})
 			: this.value;
 
 		context.additionalItems = value;

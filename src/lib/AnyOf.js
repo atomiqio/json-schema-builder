@@ -25,13 +25,13 @@ export default class AnyOf extends Keyword {
 		this._value = value;
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 		if (this.value) {
 			const props = [];
 
 			this.value.forEach(elem => {
-				props.push(elem instanceof Schema ? elem.build() : elem)
+				props.push(elem instanceof Schema ? elem.json() : elem)
 			});
 
 			context.anyOf = props;

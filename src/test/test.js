@@ -34,7 +34,7 @@ function test(name, description, builderFn) {
   it(name + ': ' + description, function () {
     try {
       const expected = getSchema(name, description);
-      const actual = builderFn().build();
+      const actual = builderFn().json();
 
       if (!isEqual(actual, expected) || verbose) {
         print('==============================');
@@ -344,7 +344,7 @@ describe('object keywords', () => {
     });
 
     test('properties', 'properties, patternProperties, additionalProperties interaction', () => {
-      // PAY ATTENTION to the values being schemas to build properly
+      // NOTE: the value of each property is its own JSON Schema fragment
       const schema = json.schema()
           .property('foo', json.schema().array().maxItems(3))
           .property('bar', json.array())

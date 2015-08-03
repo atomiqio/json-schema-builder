@@ -18,7 +18,7 @@ export default class MinItems extends ArrayKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.minItems = this.value;
