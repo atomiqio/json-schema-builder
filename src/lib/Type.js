@@ -14,7 +14,7 @@ const primitiveTypes = [
 export default class Type extends Keyword {
   constructor(value) {
     super();
-    this.value = value;
+    this.value = arguments.length > 1 ? Array.prototype.slice.call(arguments) : value;
   }
 
   set value(value) {
