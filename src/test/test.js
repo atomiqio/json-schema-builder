@@ -593,7 +593,7 @@ describe('string keywords', () => {
 });
 
 
-describe ('save', function() {
+describe('save', function () {
 
   const expectedDir = join(__dirname, 'expected');
   const actualDir = join(__dirname, 'actual');
@@ -619,7 +619,7 @@ describe ('save', function() {
     rmdir(actualDir);
   });
 
-  it ('should write sample schema async', function(done) {
+  it('should write sample schema async', function (done) {
     const schema = json.schema().string();
     const sample = 'sample1.json';
 
@@ -630,7 +630,7 @@ describe ('save', function() {
     });
   });
 
-  it ('should write sample schema sync', function() {
+  it('should write sample schema sync', function () {
     const schema = json.schema().string();
     const sample = 'sample1.json';
     schema.save(actualDir, sample);

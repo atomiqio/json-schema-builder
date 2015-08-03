@@ -71,11 +71,17 @@ export default class Schema extends Builder {
 
   // type convenience methods
   boolean() { return this.type('boolean'); }
+
   integer() { return this.type('integer'); }
+
   number() { return this.type('number'); }
+
   string() { return this.type('string'); }
+
   object() { return this.type('object'); }
+
   array() { return this.type('array'); }
+
   null() { return this.type('null'); }
 
   required() {
@@ -187,86 +193,86 @@ export default class Schema extends Builder {
     return this.getKeywordValue(AdditionalProperties);
   }
 
-	allOf() {
-		if (arguments.length) {
-			this.addKeyword(new AllOf(...arguments));
-			return this;
-		}
-
-		return this.getKeywordValue(AllOf);
-	}
-
-	anyOf() {
+  allOf() {
     if (arguments.length) {
-			this.addKeyword(new AnyOf(...arguments));
-			return this;
-		}
+      this.addKeyword(new AllOf(...arguments));
+      return this;
+    }
+
+    return this.getKeywordValue(AllOf);
+  }
+
+  anyOf() {
+    if (arguments.length) {
+      this.addKeyword(new AnyOf(...arguments));
+      return this;
+    }
 
     return this.getKeywordValue(AnyOf);
-	}
+  }
 
-	oneOf() {
+  oneOf() {
     if (arguments.length) {
-			this.addKeyword(new OneOf(...arguments));
-			return this;
-		}
+      this.addKeyword(new OneOf(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(OneOf);
-	}
+    return this.getKeywordValue(OneOf);
+  }
 
-	multipleOf(value) {
-		if (value) {
-			this.addKeyword(new MultipleOf(value));
-			return this;
-		}
+  multipleOf(value) {
+    if (value) {
+      this.addKeyword(new MultipleOf(value));
+      return this;
+    }
 
-		return this.getKeywordValue(MultipleOf);
-	}
+    return this.getKeywordValue(MultipleOf);
+  }
 
-	maximum() {
+  maximum() {
     if (arguments.length) {
-			this.addKeyword(new Maximum(...arguments));
-			return this;
-		}
+      this.addKeyword(new Maximum(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(Maximum);
-	}
+    return this.getKeywordValue(Maximum);
+  }
 
-	exclusiveMaximum() {
+  exclusiveMaximum() {
     if (arguments.length) {
-			this.addKeyword(new ExclusiveMaximum(...arguments));
-			return this;
-		}
+      this.addKeyword(new ExclusiveMaximum(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(ExclusiveMaximum);
-	}
+    return this.getKeywordValue(ExclusiveMaximum);
+  }
 
-	minimum() {
+  minimum() {
     if (arguments.length) {
-			this.addKeyword(new Minimum(...arguments));
-			return this;
-		}
+      this.addKeyword(new Minimum(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(Minimum);
-	}
+    return this.getKeywordValue(Minimum);
+  }
 
-	exclusiveMinimum() {
+  exclusiveMinimum() {
     if (arguments.length) {
-			this.addKeyword(new ExclusiveMinimum(...arguments));
-			return this;
-		}
+      this.addKeyword(new ExclusiveMinimum(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(ExclusiveMinimum);
-	}
+    return this.getKeywordValue(ExclusiveMinimum);
+  }
 
-	not() {
-		if (arguments.length) {
-			this.addKeyword(new Not(...arguments));
-			return this;
-		}
+  not() {
+    if (arguments.length) {
+      this.addKeyword(new Not(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(Not);
-	}
+    return this.getKeywordValue(Not);
+  }
 
   maxProperties() {
     if (arguments.length) {
@@ -286,86 +292,86 @@ export default class Schema extends Builder {
     return this.getKeywordValue(MaxProperties);
   }
 
-	additionalItems() {
+  additionalItems() {
     if (arguments.length) {
-			this.addKeyword(new AdditionalItems(...arguments));
-			return this;
-		}
+      this.addKeyword(new AdditionalItems(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(AdditionalItems);
-	}
+    return this.getKeywordValue(AdditionalItems);
+  }
 
-	items() {
+  items() {
     if (arguments.length) {
-			this.addKeyword(new Items(...arguments));
-			return this;
-		}
+      this.addKeyword(new Items(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(Items);
-	}
+    return this.getKeywordValue(Items);
+  }
 
-	maxItems() {
+  maxItems() {
     if (arguments.length) {
-			this.addKeyword(new MaxItems(...arguments));
-			return this;
-		}
+      this.addKeyword(new MaxItems(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(MaxItems);
-	}
+    return this.getKeywordValue(MaxItems);
+  }
 
-	minItems() {
+  minItems() {
     if (arguments.length) {
-			this.addKeyword(new MinItems(...arguments));
-			return this;
-		}
+      this.addKeyword(new MinItems(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(MinItems);
-	}
+    return this.getKeywordValue(MinItems);
+  }
 
-	uniqueItems() {
+  uniqueItems() {
     if (arguments.length) {
-			this.addKeyword(new UniqueItems(...arguments));
-			return this;
-		}
+      this.addKeyword(new UniqueItems(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(UniqueItems);
-	}
+    return this.getKeywordValue(UniqueItems);
+  }
 
-	maxLength() {
+  maxLength() {
     if (arguments.length) {
-			this.addKeyword(new MaxLength(...arguments));
-			return this;
-		}
+      this.addKeyword(new MaxLength(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(MaxLength);
-	}
+    return this.getKeywordValue(MaxLength);
+  }
 
-	minLength() {
+  minLength() {
     if (arguments.length) {
-			this.addKeyword(new MinLength(...arguments));
-			return this;
-		}
+      this.addKeyword(new MinLength(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(MinLength);
-	}
+    return this.getKeywordValue(MinLength);
+  }
 
-	pattern() {
+  pattern() {
     if (arguments.length) {
-			this.addKeyword(new Pattern(...arguments));
-			return this;
-		}
+      this.addKeyword(new Pattern(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(Pattern);
-	}
+    return this.getKeywordValue(Pattern);
+  }
 
-	definitions() {
+  definitions() {
     if (arguments.length) {
-			this.addKeyword(new Definitions(...arguments));
-			return this;
-		}
+      this.addKeyword(new Definitions(...arguments));
+      return this;
+    }
 
-		return this.getKeywordValue(Definitions);
-	}
+    return this.getKeywordValue(Definitions);
+  }
 
   dependencies() {
     if (arguments.length) {
@@ -385,7 +391,7 @@ export default class Schema extends Builder {
     return this.getKeywordValue(RefKeyword);
   }
 
-	json(context) {
+  json(context) {
     context = context || {};
 
     this.keywords.forEach(keyword => {

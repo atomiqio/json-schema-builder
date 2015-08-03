@@ -20,37 +20,37 @@ exports.string = function () { return schema().string() }
 
 
 // numeric helpers
-exports.exclusiveMaximum = function() { return schema().exclusiveMaximum(...arguments) }
-exports.exclusiveMinimum = function() { return schema().exclusiveMinimum(...arguments) }
-exports.maximum = function() { return schema().maximum(...arguments) }
-exports.minimum = function() { return schema().minimum(...arguments) }
-exports.multipleOf = function() { return schema().multipleOf(...arguments) }
+exports.exclusiveMaximum = function () { return schema().exclusiveMaximum(...arguments) }
+exports.exclusiveMinimum = function () { return schema().exclusiveMinimum(...arguments) }
+exports.maximum = function () { return schema().maximum(...arguments) }
+exports.minimum = function () { return schema().minimum(...arguments) }
+exports.multipleOf = function () { return schema().multipleOf(...arguments) }
 
 
 // array helpers
-exports.additionalItems = function() { return schema().additionalItems(...arguments) }
-exports.items = function() { return schema().items(...arguments) }
-exports.maxItems = function() { return schema().maxItems(...arguments) }
-exports.minItems = function() { return schema().minItems(...arguments) }
-exports.uniqueItems = function() { return schema().uniqueItems(...arguments) }
+exports.additionalItems = function () { return schema().additionalItems(...arguments) }
+exports.items = function () { return schema().items(...arguments) }
+exports.maxItems = function () { return schema().maxItems(...arguments) }
+exports.minItems = function () { return schema().minItems(...arguments) }
+exports.uniqueItems = function () { return schema().uniqueItems(...arguments) }
 
 // object helpers
-exports.additionalProperties = function() { return schema().additionalProperties(...arguments) }
-exports.definitions = function() { return schema().definitions(...arguments) }
-exports.dependencies = function() { return schema().dependencies(...arguments) }
-exports.maxProperties = function() { return new schema().maxProperties(...arguments) }
-exports.minProperties = function() { return new schema().minProperties(...arguments) }
-exports.patternProperties = function() { return schema().patternProperties(...arguments) }
-exports.properties = function() { return schema().properties(...arguments) }
-exports.required = function() { return schema().required(...arguments) }
-exports.$ref = function() { return schema().$ref(...arguments) }
+exports.additionalProperties = function () { return schema().additionalProperties(...arguments) }
+exports.definitions = function () { return schema().definitions(...arguments) }
+exports.dependencies = function () { return schema().dependencies(...arguments) }
+exports.maxProperties = function () { return new schema().maxProperties(...arguments) }
+exports.minProperties = function () { return new schema().minProperties(...arguments) }
+exports.patternProperties = function () { return schema().patternProperties(...arguments) }
+exports.properties = function () { return schema().properties(...arguments) }
+exports.required = function () { return schema().required(...arguments) }
+exports.$ref = function () { return schema().$ref(...arguments) }
 
-exports.additionalProperty = function() { return schema().additionalProperty(...arguments) }
-exports.patternProperty = function() { return schema().patternProperty(...arguments) }
-exports.property = function() { return schema().property(...arguments) }
+exports.additionalProperty = function () { return schema().additionalProperty(...arguments) }
+exports.patternProperty = function () { return schema().patternProperty(...arguments) }
+exports.property = function () { return schema().property(...arguments) }
 
 // string helpers
-exports.maxLength = function() { return schema().maxLength(...arguments) }
-exports.minLength = function() { return schema().minLength(...arguments) }
-exports.pattern = function() { return schema().pattern(...arguments) }
+exports.maxLength = function () { return schema().maxLength(...arguments) }
+exports.minLength = function () { return schema().minLength(...arguments) }
+exports.pattern = function () { return schema().pattern(...arguments) }
 
