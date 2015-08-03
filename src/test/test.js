@@ -63,7 +63,7 @@ describe('generic keywords (any instance type)', () => {
   describe('enum', function () {
 
     test('enum', 'simple enum validation', () => {
-      const schema = json.schema().enum([1, 2, 3]);
+      const schema = json.enum([1, 2, 3]);
       assert(schema.enum, [1, 2, 3]);
       return schema;
     });
@@ -76,7 +76,7 @@ describe('generic keywords (any instance type)', () => {
     });
 
     test('enum', 'heterogeneous enum validation', () => {
-      const schema = json.schema().enum([6, "foo", [], true, { "foo": 12 }]);
+      const schema = json.enum([6, "foo", [], true, { "foo": 12 }]);
       assert(schema.enum, [6, "foo", [], true, { "foo": 12 }]);
       return schema;
     });
@@ -117,49 +117,50 @@ describe('generic keywords (any instance type)', () => {
   describe('type', function () {
 
     test('type', 'integer type matches integers', () => {
-      const schema = json.schema().integer();
+      const schema = json.integer();
       assert.equal(schema.type(), 'integer');
       return schema;
     });
 
     test('type', 'number type matches numbers', () => {
-      const schema = json.schema().number();
+      const schema = json.number();
       assert.equal(schema.type(), 'number');
       return schema;
     });
 
     test('type', 'string type matches strings', () => {
-      const schema = json.schema().string();
+      const schema = json.string();
       assert.equal(schema.type(), 'string');
       return schema;
     });
 
     test('type', 'object type matches objects', () => {
-      const schema = json.schema().object();
+      const schema = json.object();
       assert(schema.type, 'object');
       return schema;
     });
 
     test('type', 'array type matches arrays', () => {
-      const schema = json.schema().array();
+      const schema = json.array();
+      print(schema);
       assert(schema.type, 'array');
       return schema;
     });
 
     test('type', 'boolean type matches booleans', () => {
-      const schema = json.schema().boolean();
+      const schema = json.boolean();
       assert(schema.type, 'boolean');
       return schema;
     });
 
     test('type', 'null type matches only the null object', () => {
-      const schema = json.schema().null();
+      const schema = json.null();
       assert(schema.type, 'null');
       return schema;
     });
 
     test('type', 'multiple types can be specified in an array', () => {
-      const schema = json.schema().type(['integer', 'string']);
+      const schema = json.type(['integer', 'string']);
       return schema;
     });
 
@@ -168,39 +169,35 @@ describe('generic keywords (any instance type)', () => {
   describe('allOf tests', function () {
 
     test('allOf', 'allOf', () => {
-      const schema = json.schema()
-          .allOf([
-            json.schema().property('bar', json.integer(), true),
-            json.schema().property('foo', json.string(), true)]);
+      const schema = json.allOf([
+        json.property('bar', json.integer(), true),
+        json.property('foo', json.string(), true)]);
 
       return schema;
     });
 
     test('allOf', 'allOf', () => {
-      const schema = json.schema()
-          .allOf(
-          json.schema().property('bar', json.integer(), true),
-          json.schema().property('foo', json.string(), true)
-      );
+      const schema = json.allOf(
+          json.property('bar', json.integer(), true),
+          json.property('foo', json.string(), true));
 
       return schema;
     });
 
     test('allOf', 'allOf with base schema', () => {
-      const schema = json.schema()
-          .property('bar', json.integer(), true)
+      const schema = json
           .allOf([
-            json.schema().property('foo', json.string(), true),
-            json.schema().property('baz', json.null(), true)]);
+            json.property('foo', json.string(), true),
+            json.property('baz', json.null(), true)])
+          .property('bar', json.integer(), true);
 
       return schema;
     });
 
     test('allOf', 'allOf simple types', () => {
-      const schema = json.schema()
-          .allOf([
-            json.schema().maximum(30),
-            json.schema().minimum(20)]);
+      const schema = json.allOf([
+        json.maximum(30),
+        json.minimum(20)]);
 
       return schema;
     });
@@ -210,24 +207,18 @@ describe('generic keywords (any instance type)', () => {
   describe('anyOf', function () {
 
     test('anyOf', 'anyOf', () => {
-      const schema = json.schema()
-          .anyOf([json.schema().integer(), json.schema().minimum(2)]);
-
+      const schema = json.anyOf([json.integer(), json.minimum(2)]);
       return schema;
     });
 
+    // equivalent
     test('anyOf', 'anyOf', () => {
-      const schema = json.schema()
-          .anyOf(json.schema().integer(), json.schema().minimum(2));
-
+      const schema = json.anyOf(json.integer(), json.minimum(2));
       return schema;
     });
 
     test('anyOf', 'anyOf with base schema', () => {
-      const schema = json.schema()
-          .string()
-          .anyOf([json.schema().maxLength(2), json.schema().minLength(4)]);
-
+      const schema = json.string().anyOf([json.maxLength(2), json.minLength(4)]);
       return schema;
     });
 
@@ -236,24 +227,18 @@ describe('generic keywords (any instance type)', () => {
   describe('oneOf', function () {
 
     test('oneOf', 'oneOf', () => {
-      const schema = json.schema()
-          .oneOf([json.schema().integer(), json.schema().minimum(2)]);
-
+      const schema = json.oneOf([json.integer(), json.minimum(2)]);
       return schema;
     });
 
+    // equivalent
     test('oneOf', 'oneOf', () => {
-      const schema = json.schema()
-          .oneOf(json.schema().integer(), json.schema().minimum(2));
-
+      const schema = json.oneOf(json.integer(), json.minimum(2));
       return schema;
     });
 
     test('oneOf', 'oneOf with base schema', () => {
-      const schema = json.schema()
-          .string()
-          .oneOf([json.schema().minLength(2), json.schema().maxLength(4)]);
-
+      const schema = json.string().oneOf(json.minLength(2), json.maxLength(4));
       return schema;
     });
 
@@ -262,9 +247,7 @@ describe('generic keywords (any instance type)', () => {
   describe('not', function () {
 
     test('not', 'not', () => {
-      const schema = json.schema()
-          .not(json.schema().integer());
-
+      const schema = json.not(json.integer());
       return schema;
     });
 
@@ -273,23 +256,18 @@ describe('generic keywords (any instance type)', () => {
   describe('type', function () {
 
     test('not', 'not multiple types', () => {
-      const schema = json.schema()
-          .not(json.schema().type(['integer', 'boolean']));
+      const schema = json.not(json.type('integer', 'boolean'));
 
       return schema;
     });
 
     test('not', 'not more complex schema', () => {
-      const schema = json.schema()
-          .not(json.schema().object().property('foo', json.string()));
-
+      const schema = json.not(json.object().property('foo', json.string()));
       return schema;
     });
 
     test('not', 'forbidden property', () => {
-      const schema = json.schema()
-          .property('foo', json.schema().not(json.schema()));
-
+      const schema = json.property('foo', json.not(json.schema()));
       return schema;
     });
 
@@ -302,48 +280,42 @@ describe('object keywords', () => {
   describe('dependencies', () => {
 
     test('dependencies', 'dependencies', () => {
-      const schema = json.schema()
-          .dependencies({ 'bar': ['foo'] });
-
+      const schema = json.dependencies({ 'bar': ['foo'] });
       return schema;
     });
 
     test('dependencies', 'multiple dependencies', () => {
-      const schema = json.schema()
-          .dependencies({ 'quux': ['foo', 'bar'] });
-
+      const schema = json.dependencies({ 'quux': ['foo', 'bar'] });
       return schema;
     });
 
-		test('dependencies', 'multiple dependencies subschema', ()=> {
-			const schema = json.schema()
-				.dependencies({
-												bar: json.schema().properties({
-													foo: json.schema().integer(),
-													bar: json.schema().integer()
-												})
-											});
+    test('dependencies', 'multiple dependencies subschema', ()=> {
+      const schema = json.dependencies({
+        bar: json.properties({
+          foo: json.integer(),
+          bar: json.integer()
+        })
+      });
 
-			return schema;
-		});
+      return schema;
+    });
 
   });
 
   describe('properties', function () {
 
     test('properties', 'object properties validation', () => {
-      const schema = json.schema()
-          .properties({
-            foo: json.integer(),
-            bar: json.string()
-          });
+      const schema = json.properties({
+        foo: json.integer(),
+        bar: json.string()
+      });
 
       return schema;
     });
 
     // equivalent
     test('properties', 'object properties validation', () => {
-      const schema = json.schema()
+      const schema = json
           .property('foo', json.integer())
           .property('bar', json.string());
 
@@ -351,12 +323,11 @@ describe('object keywords', () => {
     });
 
     test('properties', 'properties, patternProperties, additionalProperties interaction', () => {
-      // NOTE: the value of each property is its own JSON Schema fragment
-      const schema = json.schema()
-          .property('foo', json.schema().array().maxItems(3))
+      const schema = json
+          .property('foo', json.array().maxItems(3))
           .property('bar', json.array())
-          .patternProperty('f.o', json.schema().minItems(2))
-          .additionalProperties(json.schema().integer());
+          .patternProperty('f.o', json.minItems(2))
+          .additionalProperties(json.integer());
 
       return schema;
     });
@@ -365,33 +336,31 @@ describe('object keywords', () => {
   describe('patternProperties', function () {
 
     test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-      const schema = json.schema().patternProperties({ 'f.*o': json.integer() });
-
+      const schema = json.patternProperties({ 'f.*o': json.integer() });
       return schema;
     });
 
     // equivalent
     test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-      const schema = json.schema().patternProperty('f.*o', json.integer());
-
+      const schema = json.patternProperty('f.*o', json.integer());
       return schema;
     });
 
-		// equivalent
-		test('patternProperties', 'patternProperties validates properties matching a regex', () => {
-			const schema = json.schema().patternProperty({ 'f.*o': json.integer() });
-			return schema;
-		});
+    // equivalent
+    test('patternProperties', 'patternProperties validates properties matching a regex', () => {
+      const schema = json.patternProperty({ 'f.*o': json.integer() });
+      return schema;
+    });
 
     test('patternProperties', 'multiple simultaneous patternProperties are validated', () => {
-      const schema = json.schema()
+      const schema = json
           .patternProperty('a*', json.integer())
           .patternProperty('aaa*', json.maximum(20))
       return schema;
     });
 
     test('patternProperties', 'regexes are not anchored by default and are case sensitive', () => {
-      const schema = json.schema()
+      const schema = json
           .patternProperty('[0-9]{2,}', json.boolean())
           .patternProperty('X_', json.string());
 
@@ -402,7 +371,7 @@ describe('object keywords', () => {
   describe('additionalProperties', function () {
 
     test('additionalProperties', 'additionalProperties being false does not allow other properties', () => {
-      const schema = json.schema()
+      const schema = json
           .properties({
             foo: {},
             bar: {}
@@ -416,7 +385,7 @@ describe('object keywords', () => {
     });
 
     test('additionalProperties', 'additionalProperties allows a schema which should validate', () => {
-      const schema = json.schema()
+      const schema = json
           .properties({
             foo: {},
             bar: {}
@@ -426,14 +395,13 @@ describe('object keywords', () => {
       return schema;
     });
 
-		test('additionalProperties', 'additionalProperties can exist by itself', () => {
-			const schema = json.schema().additionalProperties(json.schema().boolean());
-
-			return schema;
-		});
+    test('additionalProperties', 'additionalProperties can exist by itself', () => {
+      const schema = json.additionalProperties(json.boolean());
+      return schema;
+    });
 
     test('additionalProperties', 'additionalProperties are allowed by default', () => {
-      const schema = json.schema()
+      const schema = json
           .properties({
             foo: {},
             bar: {}
@@ -445,17 +413,17 @@ describe('object keywords', () => {
   });
 
   test('maxProperties', 'maxProperties validation', () => {
-    const schema = json.schema().maxProperties(2);
+    const schema = json.maxProperties(2);
     return schema;
   });
 
   test('minProperties', 'minProperties validation', () => {
-    const schema = json.schema().minProperties(1);
+    const schema = json.minProperties(1);
     return schema;
   });
 
   test('required', 'required validation', () => {
-    const schema = json.schema()
+    const schema = json
         .property('foo', {}, true)
         .property('bar', {});
     return schema;
@@ -464,12 +432,12 @@ describe('object keywords', () => {
   describe('definitions', () => {
 
     test('definitions', 'valid definition', () => {
-      const schema = json.schema().$ref('http://json-schema.org/draft-04/schema#');
+      const schema = json.$ref('http://json-schema.org/draft-04/schema#');
       return schema;
     });
 
     test('definitions', 'valid definition', () => {
-      const schema = json.schema().$ref('http://json-schema.org/draft-04/schema#');
+      const schema = json.$ref('http://json-schema.org/draft-04/schema#');
       return schema;
     });
 
@@ -481,23 +449,17 @@ describe('numeric keywords', () => {
   describe('multipleOf', function () {
 
     test('multipleOf', 'by int', () => {
-      const schema = json.schema()
-          .multipleOf(2);
-
+      const schema = json.multipleOf(2);
       return schema;
     });
 
     test('multipleOf', 'by number', () => {
-      const schema = json.schema()
-          .multipleOf(1.5);
-
+      const schema = json.multipleOf(1.5);
       return schema;
     });
 
     test('multipleOf', 'by small number', () => {
-      const schema = json.schema()
-          .multipleOf(0.0001);
-
+      const schema = json.multipleOf(0.0001);
       return schema;
     });
 
@@ -506,17 +468,12 @@ describe('numeric keywords', () => {
   describe('maximum and exclusiveMaximum', function () {
 
     test('maximum', 'maximum validation', () => {
-      const schema = json.schema()
-          .maximum(3.0);
-
+      const schema = json.maximum(3.0);
       return schema;
     });
 
     test('maximum', 'exclusiveMaximum validation', () => {
-      const schema = json.schema()
-          .maximum(3.0)
-          .exclusiveMaximum(true);
-
+      const schema = json.maximum(3.0).exclusiveMaximum(true);
       return schema;
     });
 
@@ -525,17 +482,12 @@ describe('numeric keywords', () => {
   describe('minimum and exclusiveMinimum', function () {
 
     test('minimum', 'minimum validation', () => {
-      const schema = json.schema()
-          .minimum(1.1);
-
+      const schema = json.minimum(1.1);
       return schema;
     });
 
     test('minimum', 'exclusiveMinimum validation', () => {
-      const schema = json.schema()
-          .minimum(1.1)
-          .exclusiveMinimum(true);
-
+      const schema = json.minimum(1.1).exclusiveMinimum(true);
       return schema;
     });
 
@@ -546,30 +498,31 @@ describe('numeric keywords', () => {
 describe('array keywords', () => {
 
   test('items', 'a schema given for items', () => {
-    const schema = json.schema()
-      //TODO: implement helper function for returning valid schema for given type
-        .items(json.schema().integer());
-
+    const schema = json.items(json.schema().integer());
     return schema;
   });
 
   test('items', 'an array of schemas for items', () => {
-    const schema = json.schema()
-        .items([json.schema().integer(), json.schema().string()]);
+    const schema = json.items([json.integer(), json.string()]);
+    return schema;
+  });
 
+  // equivalent
+  test('items', 'an array of schemas for items', () => {
+    const schema = json.items(json.integer(), json.string());
     return schema;
   });
 
   test('additionalItems', 'additionalItems as schema', () => {
-    const schema = json.schema()
+    const schema = json
         .items([json.schema()])
-        .additionalItems(json.schema().integer());
+        .additionalItems(json.integer());
 
     return schema;
   });
 
   test('additionalItems', 'items is schema, no additionalItems', () => {
-    const schema = json.schema()
+    const schema = json
         .items(json.schema())
         .additionalItems(false);
 
@@ -577,36 +530,35 @@ describe('array keywords', () => {
   });
 
   test('additionalItems', 'array of items with no additionalItems', () => {
-    const schema = json.schema()
-        .items([json.schema(), json.schema(), json.schema()])
+    const schema = json
+        .items(json.schema(), json.schema(), json.schema())
         .additionalItems(false);
 
     return schema;
   });
 
   test('additionalItems', 'additionalItems as false without items', () => {
-    const schema = json.schema().additionalItems(false);
+    const schema = json.additionalItems(false);
     return schema;
   });
 
   test('additionalItems', 'additionalItems are allowed by default', () => {
-    const schema = json.schema()
-        .items([json.schema().integer()]);
+    const schema = json.items([json.integer()]);
     return schema;
   });
 
   test('maxItems', 'maxItems validation', () => {
-    const schema = json.schema().maxItems(2);
+    const schema = json.maxItems(2);
     return schema;
   });
 
   test('minItems', 'minItems validation', () => {
-    const schema = json.schema().minItems(1);
+    const schema = json.minItems(1);
     return schema;
   });
 
   test('uniqueItems', 'uniqueItems validation', () => {
-    const schema = json.schema().uniqueItems(true);
+    const schema = json.uniqueItems(true);
     return schema;
   });
 
@@ -615,23 +567,23 @@ describe('array keywords', () => {
 describe('string keywords', () => {
 
   test('maxLength', 'maxLength validation', () => {
-    const schema = json.schema().maxLength(2);
+    const schema = json.maxLength(2);
     return schema;
   });
 
   test('minLength', 'minLength validation', () => {
-    const schema = json.schema().minLength(2);
+    const schema = json.minLength(2);
     return schema;
   });
 
 
   test('pattern', 'pattern validation', () => {
-    const schema = json.schema().pattern('^a*$');
+    const schema = json.pattern('^a*$');
     return schema;
   });
 
   test('pattern', 'pattern is not anchored', () => {
-    const schema = json.schema().pattern('a+');
+    const schema = json.pattern('a+');
     return schema;
   });
 

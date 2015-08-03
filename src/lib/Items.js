@@ -4,7 +4,7 @@ import Schema from './Schema';
 export default class Items extends ArrayKeyword {
 	constructor(value) {
 		super();
-		this.value = value;
+		this.value = arguments.length > 1 ? Array.prototype.slice.call(arguments) : value;
 	}
 
 	get value() {
