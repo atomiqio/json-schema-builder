@@ -3,6 +3,9 @@ import testSuite from 'json-schema-test-suite';
 import * as _ from 'lodash';
 import { isEqual, stringify } from './helpers';
 import * as json from '../lib';
+import { mkdirSync } from 'fs';
+import { join } from 'path';
+import del from 'del';
 
 const draft4 = testSuite.draft4();
 
@@ -589,3 +592,45 @@ describe('string keywords', () => {
 
 });
 
+
+describe ('save', function() {
+
+  const expectedDir = join(__dirname, 'expected');
+  const actualDir = join(__dirname, 'actual');
+
+  function assertMatch(filename) {
+    const expected = require(join(expectedDir, filename));
+    const actual = require(join(actualDir, filename));
+    assert(isEqual(actual, expected));
+  }
+
+  before(() => {
+
+    del(actualDir);
+    mkdirSync(actualDir);
+
+  });
+
+  after(() => {
+    del(actualDir);
+  });
+
+  it ('should write sample schema async', function(done) {
+    const schema = json.schema().string();
+    const sample = 'sample1.json';
+
+    schema.save(actualDir, sample, (err) => {
+      if (err) return done(err)
+      assertMatch(sample);
+      done();
+    });
+  });
+
+  it ('should write sample schema sync', function() {
+    const schema = json.schema().string();
+    const sample = 'sample1.json';
+    schema.save(actualDir, sample);
+    assertMatch(sample);
+  });
+
+});
