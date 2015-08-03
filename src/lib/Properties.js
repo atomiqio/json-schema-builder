@@ -38,7 +38,7 @@ export default class Properties extends ObjectKeyword {
     }
   }
 
-  build(context) {
+  json(context) {
     context = context || {};
 
     if (this.value) {
@@ -47,7 +47,7 @@ export default class Properties extends ObjectKeyword {
         let ctx = {};
         const value = this.value[key];
         props[key] = (value instanceof Builder)
-            ? this.value[key].build(ctx)
+            ? this.value[key].json(ctx)
             : this.value[key];
       });
 

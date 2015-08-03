@@ -19,7 +19,7 @@ export default class RefKeyword extends Keyword {
     this._value = value;
   }
 
-  build(context) {
+  json(context) {
     context = context || {};
     context.$ref = this.value;
     return context;

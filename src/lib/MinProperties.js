@@ -18,7 +18,7 @@ export default class MinProperties extends ObjectKeyword {
     }
   }
 
-  build(context) {
+  json(context) {
     context = context || {};
     context.minProperties = this.value;
     return context;

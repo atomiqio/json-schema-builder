@@ -18,7 +18,7 @@ export default class Pattern extends StringKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.pattern = this.value;

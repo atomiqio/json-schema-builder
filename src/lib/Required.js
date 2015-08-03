@@ -22,7 +22,7 @@ export default class Required extends ObjectKeyword {
     }
   }
 
-  build(context) {
+  json(context) {
     context = context || {};
     context.required = this.value;
     return context;

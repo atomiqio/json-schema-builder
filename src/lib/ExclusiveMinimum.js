@@ -18,7 +18,7 @@ export default class ExclusiveMinimum extends NumberKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		if (!context.hasOwnProperty('minimum')) {

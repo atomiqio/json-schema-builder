@@ -18,7 +18,7 @@ export default class Maximum extends NumberKeyword {
 		return this._value;
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.maximum = this.value;

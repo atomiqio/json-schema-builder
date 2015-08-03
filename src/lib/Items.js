@@ -28,19 +28,19 @@ export default class Items extends ArrayKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		if (this.value) {
 			let props;
 
 			if (this.value instanceof Schema) {
-				props = this.value.build();
+				props = this.value.json();
 			} else {
 				props = [];
 
 				this.value.forEach(elem => {
-					props.push(elem instanceof Schema ? elem.build() : elem);
+					props.push(elem instanceof Schema ? elem.json() : elem);
 				});
 			}
 

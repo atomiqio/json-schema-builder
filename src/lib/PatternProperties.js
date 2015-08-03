@@ -45,7 +45,7 @@ export default class PatternProperties extends ObjectKeyword {
     }
   }
 
-  build(context) {
+  json(context) {
     context = context || {};
 
     if (this.value) {
@@ -53,7 +53,7 @@ export default class PatternProperties extends ObjectKeyword {
       Object.keys(this.value).forEach(key => {
         const value = this.value[key];
         props[key] = (value instanceof Builder)
-            ? this.value[key].build()
+            ? this.value[key].json()
             : this.value[key];
       });
 

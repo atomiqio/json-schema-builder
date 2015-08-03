@@ -18,7 +18,7 @@ export default class UniqueItems extends ArrayKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.uniqueItems = this.value;

@@ -18,7 +18,7 @@ export default class MultipleOf extends NumberKeyword {
 		return this._value;
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.multipleOf = this.value;

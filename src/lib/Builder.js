@@ -1,5 +1,5 @@
 export default class Builder {
-  build(context) {
-    throw new Error('build must be overridden');
+  json(context) {
+    throw new Error('json must be overridden');
   }
 }

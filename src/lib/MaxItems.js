@@ -18,7 +18,7 @@ export default class MaxItems extends ArrayKeyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.maxItems = this.value;

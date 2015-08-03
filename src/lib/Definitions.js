@@ -24,7 +24,7 @@ export default class Definitions extends Keyword {
 		}
 	}
 
-	build(context) {
+	json(context) {
 		context = context || {};
 
 		context.definitions = value;
