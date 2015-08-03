@@ -1,4 +1,7 @@
 import * as _ from 'lodash';
+import { writeFile, writeFileSync } from 'fs';
+import { join } from 'path';
+
 import AdditionalItems from './AdditionalItems';
 import AdditionalProperties from './AdditionalProperties';
 import AllOf from './AllOf';
@@ -390,6 +393,21 @@ export default class Schema extends Builder {
     });
 
     return context;
+  }
+
+  save() {
+    const context = typeof arguments[0] == 'object' ? arguments[0] : null;
+    const callback = arguments.length && typeof arguments[arguments.length - 1] == 'function' ? arguments[arguments.length - 1] : null;
+
+    if (callback && arguments.length == 1 || !arguments.length) throw new Error('missing filename argument');
+
+    const begin = context ? 1 : 0;
+    const end = callback ? arguments.length - 1 : arguments.length;
+    const args = Array.prototype.slice.call(arguments, begin, end);
+    const pathname = join(...args);
+    const json = JSON.stringify(this.json(context), null, 2);
+
+    callback ? writeFile(pathname, json, 'utf8', callback) : writeFileSync(pathname, json, 'utf8');
   }
 }
 
