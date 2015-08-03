@@ -84,9 +84,9 @@ export default class Schema extends Builder {
     return this.getKeywordValue(Required);
   }
 
-  enum(values) {
-    if (isDefined(values)) {
-      this.addKeyword(new Enum(values));
+  enum() {
+    if (isDefined(arguments[0])) {
+      this.addKeyword(new Enum(...arguments));
       return this;
     }
 

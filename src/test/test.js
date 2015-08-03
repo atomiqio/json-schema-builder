@@ -68,6 +68,13 @@ describe('generic keywords (any instance type)', () => {
       return schema;
     });
 
+    // equivalent
+    test('enum', 'simple enum validation', () => {
+      const schema = json.schema().enum(1, 2, 3);
+      assert(schema.enum, [1, 2, 3]);
+      return schema;
+    });
+
     test('enum', 'heterogeneous enum validation', () => {
       const schema = json.schema().enum([6, "foo", [], true, { "foo": 12 }]);
       assert(schema.enum, [6, "foo", [], true, { "foo": 12 }]);
