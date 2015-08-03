@@ -73,7 +73,7 @@ describe('generic keywords (any instance type)', () => {
 
     // equivalent
     test('enum', 'simple enum validation', () => {
-      const schema = json.schema().enum(1, 2, 3);
+      const schema = json.enum(1, 2, 3);
       assert(schema.enum, [1, 2, 3]);
       return schema;
     });
@@ -85,7 +85,7 @@ describe('generic keywords (any instance type)', () => {
     });
 
     test('enum', 'enums in properties', () => {
-      const schema = json.schema()
+      const schema = json
           .type('object')
           .required(['bar'])
           .properties({
@@ -98,7 +98,7 @@ describe('generic keywords (any instance type)', () => {
 
     // equivalent (adding properties constructed with name and value)
     test('enum', 'enums in properties', () => {
-      const schema = json.schema()
+      const schema = json
           .object()
           .property('foo', json.enum('foo'))
           .property('bar', json.enum('bar'), true);
@@ -108,7 +108,7 @@ describe('generic keywords (any instance type)', () => {
 
     // equivalent (adding properties constructed with objects)
     test('enum', 'enums in properties', () => {
-      const schema = json.schema()
+      const schema = json
           .object()
           .property({ foo: json.enum('foo') })
           .property({ bar: json.enum('bar') }, true);
