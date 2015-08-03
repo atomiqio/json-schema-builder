@@ -604,15 +604,19 @@ describe ('save', function() {
     assert(isEqual(actual, expected));
   }
 
+  function rmdir(dir) {
+    del.sync(dir, { force: true });
+  }
+
   before(() => {
 
-    del(actualDir);
+    rmdir(actualDir);
     mkdirSync(actualDir);
 
   });
 
   after(() => {
-    del(actualDir);
+    rmdir(actualDir);
   });
 
   it ('should write sample schema async', function(done) {
