@@ -1,5 +1,5 @@
 {
-  "name": "@atomiq/json-schema-builder",
+  "name": "json-schema-builder",
   "version": "0.0.1",
   "description": "Library for generating JSON Schema.",
   "main": "./lib",
