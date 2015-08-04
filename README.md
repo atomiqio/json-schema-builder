@@ -47,7 +47,7 @@ The `type` constraint can be used to restrict JSON instances to a particular set
     var schema = jsb.type( 'integer', 'string' );
 
     
-`type` has a convenient wrappers corresponding to all the valid JSON Schema types:
+`type` has convenient wrappers corresponding to all the valid JSON Schema types:
     
     var integerSchema = jsb.integer();  // jsb.type('integer')
     var numberSchema  = jsb.number();   // jsb.type('number')
