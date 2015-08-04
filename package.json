@@ -1,8 +1,8 @@
 {
   "name": "json-schema-builder",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Library for generating JSON Schema.",
-  "main": "./lib",
+  "main": "./dist/lib",
   "scripts": {
     "test": "gulp test",
     "test-node-0.12": "mocha dist/test -- --harmony",
@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/atomiqio/json-schema-builder#readme",
   "dependencies": {
-    "babel-runtime": "^5.4.7"
+    "babel-runtime": "^5.4.7",
+    "lodash": "^3.10.0"
   },
   "devDependencies": {
     "babel": "^5.4.7",
@@ -39,7 +40,6 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.5",
     "json-schema-test-suite": "0.0.10",
-    "lodash": "^3.10.0",
     "tv4": "^1.1.9",
     "z-schema": "^3.11.0"
   }
