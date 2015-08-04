@@ -226,3 +226,27 @@ Matches
   "foo": 1
 }
 ```
+
+#### Specify property type explicitly
+
+Use optional flag to specify if property is required (default is `false`).
+
+```
+var schema = json
+  .property('foo', json.string(), true)
+  .property('bar', json.integer());
+```
+
+Generates
+
+```
+{
+  "properties": {
+    "foo": { "type": "string" },
+    "bar": { "type": "integer" }
+  },
+  "required": [ "foo" ]
+}
+```
+
+
