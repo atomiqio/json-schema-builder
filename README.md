@@ -113,4 +113,9 @@ There is a convenience `save` method for saving a schema to a file. It generates
 
 Of course, the output from `schema.json()` can be explicitly persisted any way desired.
 
+Tests
+-----
 
+    npm test
+
+`json-schema-builder` provides [tests](https://github.com/atomiqio/json-schema-builder/blob/master/src/test/test.js) to verify the API can generate all the schemas that comprise the standard [JSON Schema Test Suite](https://github.com/json-schema/JSON-Schema-Test-Suite).
