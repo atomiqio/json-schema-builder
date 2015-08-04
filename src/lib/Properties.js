@@ -29,11 +29,12 @@ export default class Properties extends ObjectKeyword {
       return;
     }
 
+
     if (this.value) {
-      this.value[name] = value;
+      this.value[name] = value || {};
     } else {
       const prop = {};
-      prop[name] = value;
+      prop[name] = value || {};
       this.value = prop;
     }
   }

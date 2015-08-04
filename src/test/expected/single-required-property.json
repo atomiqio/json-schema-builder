@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "foo": {}
+  },
+  "required": [
+    "foo"
+  ]
+}
