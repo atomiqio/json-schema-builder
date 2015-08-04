@@ -127,7 +127,7 @@ export default class Schema extends Builder {
         properties.add(name, value);
       } else {
         const prop = {};
-        prop[name] = value;
+        prop[name] = value || {};
         this.properties(prop);
       }
 
