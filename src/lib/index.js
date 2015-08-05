@@ -4,6 +4,7 @@ const schema = exports.schema = function () { return new Schema(...arguments) }
 // generic helpers
 exports.allOf = function () { return schema().allOf(...arguments) }
 exports.anyOf = function () { return schema().anyOf(...arguments) }
+exports.default = function () { return schema().default(...arguments) }
 exports.enum = function () { return schema().enum(...arguments) }
 exports.not = function () { return schema().not(...arguments) }
 exports.oneOf = function () { return schema().oneOf(...arguments) }

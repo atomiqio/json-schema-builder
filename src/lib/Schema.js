@@ -7,6 +7,7 @@ import AdditionalProperties from './AdditionalProperties';
 import AllOf from './AllOf';
 import AnyOf from './AnyOf';
 import Builder from './Builder';
+import Default from './Default';
 import Definitions from './Definitions';
 import Dependencies from './Dependencies';
 import Enum from './Enum';
@@ -409,6 +410,15 @@ export default class Schema extends Builder {
 		}
 
 		return this.getKeywordValue(Format);
+	}
+
+	default() {
+		if (arguments.length) {
+			this.addKeyword(new Default(...arguments));
+			return this;
+		}
+
+		return this.getKeywordValue(Default);
 	}
 
 

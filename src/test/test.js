@@ -630,6 +630,20 @@ describe ('Tests based on standard JSON Schema Test Suite', () => {
 
 		});
 
+		describe('default', () => {
+
+			test('default', 'invalid type for default', () => {
+				const schema = json.property('foo', json.integer().default([]) );
+				return schema;
+			});
+
+			test('default', 'invalid string value for default', () => {
+				const schema = json.property('bar', json.string().minLength(4).default('bad'));
+				return schema;
+			});
+
+		});
+
 	});
 
 });
