@@ -1,6 +1,6 @@
 {
   "name": "json-schema-builder",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Library for generating JSON Schema.",
   "main": "./dist/lib",
   "scripts": {
