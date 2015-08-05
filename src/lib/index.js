@@ -53,4 +53,4 @@ exports.property = function () { return schema().property(...arguments) }
 exports.maxLength = function () { return schema().maxLength(...arguments) }
 exports.minLength = function () { return schema().minLength(...arguments) }
 exports.pattern = function () { return schema().pattern(...arguments) }
-
+exports.format = function () { return schema().format(...arguments) }

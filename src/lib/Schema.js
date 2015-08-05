@@ -12,6 +12,7 @@ import Dependencies from './Dependencies';
 import Enum from './Enum';
 import ExclusiveMaximum from './ExclusiveMaximum';
 import ExclusiveMinimum from './ExclusiveMinimum';
+import Format from './Format';
 import Items from './Items';
 import Keyword from './Keyword';
 import Maximum from './Maximum';
@@ -400,6 +401,16 @@ export default class Schema extends Builder {
 
     return context;
   }
+
+	format() {
+		if (arguments.length) {
+			this.addKeyword(new Format(...arguments));
+			return this;
+		}
+
+		return this.getKeywordValue(Format);
+	}
+
 
   save() {
     const context = typeof arguments[0] == 'object' ? arguments[0] : null;
