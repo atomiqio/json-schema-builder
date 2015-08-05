@@ -592,37 +592,45 @@ describe ('Tests based on standard JSON Schema Test Suite', () => {
       return schema;
     });
 
-		test('format', 'validation of date-time strings', () => {
-			const schema = json.format('date-time');
-			return schema;
-		});
-
-		test('format', 'validation of URIs', () => {
-			const schema = json.format('uri');
-			return schema;
-		});
-
-		test('format', 'validation of e-mail addresses', () => {
-			const schema = json.format('email');
-			return schema;
-		});
-
-		test('format', 'validation of IP addresses', () => {
-			const schema = json.format('ipv4');
-			return schema;
-		});
-
-		test('format', 'validation of IPv6 addresses', () => {
-			const schema = json.format('ipv6');
-			return schema;
-		});
-
-		test('format', 'validation of host names', () => {
-			const schema = json.format('hostname');
-			return schema;
-		});
-
   });
+
+	describe('optional keywords', () => {
+		
+		describe('format', () => {
+
+			test('format', 'validation of date-time strings', () => {
+				const schema = json.format('date-time');
+				return schema;
+			});
+
+			test('format', 'validation of URIs', () => {
+				const schema = json.format('uri');
+				return schema;
+			});
+
+			test('format', 'validation of e-mail addresses', () => {
+				const schema = json.format('email');
+				return schema;
+			});
+
+			test('format', 'validation of IP addresses', () => {
+				const schema = json.format('ipv4');
+				return schema;
+			});
+
+			test('format', 'validation of IPv6 addresses', () => {
+				const schema = json.format('ipv6');
+				return schema;
+			});
+
+			test('format', 'validation of host names', () => {
+				const schema = json.format('hostname');
+				return schema;
+			});
+
+		});
+
+	});
 
 });
 
