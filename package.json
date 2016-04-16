@@ -6,7 +6,8 @@
   "scripts": {
     "test": "gulp test",
     "test-node-0.12": "mocha dist/test -- --harmony",
-    "clean": "gulp clean"
+    "clean": "gulp clean",
+    "prepublish": "gulp dist"
   },
   "repository": {
     "type": "git",
