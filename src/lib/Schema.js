@@ -7,6 +7,7 @@ import AdditionalProperties from './AdditionalProperties';
 import AllOf from './AllOf';
 import AnyOf from './AnyOf';
 import Builder from './Builder';
+import Custom from './Custom';
 import Default from './Default';
 import Definitions from './Definitions';
 import Dependencies from './Dependencies';
@@ -421,6 +422,14 @@ export default class Schema extends Builder {
 		return this.getKeywordValue(Default);
 	}
 
+	custom() {
+		if (arguments.length) {
+			this.addKeyword(new Custom(...arguments));
+			return this;
+		}
+
+		return this.getKeywordValue(Custom);
+	}
 
   save() {
     const context = typeof arguments[0] == 'object' ? arguments[0] : null;

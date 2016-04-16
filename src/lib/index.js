@@ -9,6 +9,7 @@ exports.enum = function () { return schema().enum(...arguments) }
 exports.not = function () { return schema().not(...arguments) }
 exports.oneOf = function () { return schema().oneOf(...arguments) }
 exports.type = function () { return schema().type(...arguments) }
+exports.custom = function () { return schema().custom(...arguments) }
 
 // generic helpers - type wrappers
 exports.array = function () { return schema().array() }

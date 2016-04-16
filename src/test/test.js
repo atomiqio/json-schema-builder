@@ -595,7 +595,7 @@ describe ('Tests based on standard JSON Schema Test Suite', () => {
   });
 
 	describe('optional keywords', () => {
-		
+
 		describe('format', () => {
 
 			test('format', 'validation of date-time strings', () => {
@@ -643,6 +643,31 @@ describe ('Tests based on standard JSON Schema Test Suite', () => {
 			});
 
 		});
+
+		describe('custom', () => {
+
+			it('custom: adds a new keyword', () => {
+				const schema = json.custom('newkeyword', 1);
+				assert(isEqual(schema.json(), {
+					newkeyword: 1
+				}));
+			})
+
+			it('custom: handles Schema value', () => {
+				const schema = json.custom('newkeyword', json.boolean());
+				assert(isEqual(schema.json(), {
+					newkeyword: {type: 'boolean'}
+				}));
+			})
+
+			it('custom: handles Array of Schemas', () => {
+				const schema = json.custom('newkeyword', [json.boolean(), json.array()]);
+				assert(isEqual(schema.json(), {
+					newkeyword: [{type: 'boolean'}, {type: 'array'}]
+				}));
+			})
+
+		})
 
 	});
 
